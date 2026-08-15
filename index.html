@@ -7,34 +7,50 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            /* 🖼️ نیچے دیے گئے لنک کی جگہ آپ اپنی تصویر کا انٹرنیٹ لنک لگا سکتے ہیں */
-            background: url('https://unsplash.com') no-repeat center center fixed;
-            background-size: cover;
             color: #2c3e50;
             padding: 20px;
             text-align: center;
             margin: 0;
+            min-height: 100vh;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            transition: background 0.5s ease;
         }
-        /* بیک گراؤنڈ کو تھوڑا دھندلا اور خوبصورت کرنے کے لیے اوورلے */
+        
+        /* شروعات میں پہلا بیک گراؤنڈ سیٹ ہوگا */
+        body.login-bg {
+            background: url('https://ibb.co');
+        }
+
+        /* انلاک ہونے کے بعد دوسرا بیک گراؤنڈ سیٹ ہوگا */
+        body.dashboard-bg {
+            background: url('https://ibb.co');
+        }
+
+        /* شیشے جیسا خوبصورت اوورلے لک دینے کے لیے */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(5px);
-            -webkit-backdrop-filter: blur(5px);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
             z-index: -1;
         }
+
         .container {
             max-width: 400px;
             margin: 40px auto;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgba(255, 255, 255, 0.92);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
             padding: 30px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
+
         .input-field {
             width: 100%;
             padding: 14px;
@@ -45,7 +61,9 @@
             text-align: center;
             font-size: 16px;
             background: white;
+            outline: none;
         }
+
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -58,6 +76,7 @@
             width: 100%;
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
+
         .app-btn {
             display: block;
             padding: 15px;
@@ -68,6 +87,7 @@
             font-weight: bold;
             font-size: 16px;
         }
+
         .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
         .easypaisa { background: #00a651; }
         
@@ -81,22 +101,26 @@
             position: relative;
             box-shadow: 0 8px 20px rgba(118, 75, 162, 0.2);
         }
+
         .balance-amount {
             font-size: 28px;
             font-weight: bold;
             margin-top: 5px;
         }
+
         .eye-btn {
             position: absolute;
             left: 20px;
             top: 22px;
             cursor: pointer;
             font-size: 22px;
-            background: rgba(255,255,255,0.2);
-            padding: 5px 8px;
+            background: rgba(255,255,255,0.25);
+            padding: 5px 10px;
             border-radius: 50px;
             line-height: 1;
+            user-select: none;
         }
+
         .edit-btn {
             background: rgba(255,255,255,0.25);
             border: none;
@@ -107,10 +131,12 @@
             cursor: pointer;
             margin-top: 10px;
         }
+
         .notes-section {
             margin-top: 25px;
             text-align: right;
         }
+
         .notes-area {
             width: 100%;
             height: 90px;
@@ -127,11 +153,11 @@
         #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
-<body>
+<body class="login-bg"> <!-- شروع میں پہلا امیج لوڈ ہوگا -->
 
 <div class="container">
 
-    <!-- 1. فنگر پرنٹ لاک اسکرین (صرف تصدیق شدہ براؤزر کے لیے) -->
+    <!-- 1. فنگر پرنٹ لاک اسکرین -->
     <div id="lock-screen">
         <div style="font-size: 70px; margin-bottom: 15px;">🛡️</div>
         <h2>میرا محفوظ والٹ</h2>
@@ -139,7 +165,7 @@
         <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
     </div>
 
-    <!-- 2. فکسڈ لاگ ان اسکرین (یوزر نیم اور پاس ورڈ کے لیے) -->
+    <!-- 2. لاگ ان اسکرین (یوزر نیم اور پاس ورڈ) -->
     <div id="backup-login">
         <div style="font-size: 60px; margin-bottom: 15px;">🔒</div>
         <h2>والٹ لاگ ان</h2>
@@ -170,34 +196,34 @@
 </div>
 
 <script>
-    // یوزر نیم اور پاس ورڈ اب یہاں فکس کر دیا گیا ہے
+    // یوزر نیم اور پاس ورڈ فکسڈ ڈیٹا
     var CORRECT_USER = "UmerSiraj";
     var CORRECT_PIN = "1122";
     var isBalanceHidden = false;
 
     window.onload = function() {
-        // سیکیورٹی فکس: ہر نئے یا پرانے موبائل پر اب سیدھا لاگ ان اسکرین آئے گی
+        // ہمیشہ پہلے پیج پر لاگ ان اسکرین دکھائیں
         document.getElementById('backup-login').style.display = 'block';
 
-        // بیلنس لوڈ کریں
+        // پہلے سے محفوظ بیلنس لوڈ کریں
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
             document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
         }
 
-        // نوٹس لوڈ کریں
+        // محفوظ نوٹس لوڈ کریں
         if (localStorage.getItem('wallet_notes')) {
             document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
         }
     };
 
-    // لاگ ان ویریفکیشن کا مستقل حل
+    // لاگ ان ویریفکیشن
     function verifyBackupLogin() {
         var enteredUser = document.getElementById('login-user').value.trim();
         var enteredPin = document.getElementById('login-pin').value.trim();
 
         if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
-            // اگر پہلی بار لاگ ان صحیح ہو جائے، تب فنگر پرنٹ والا آپشن دکھائیں اگر براؤزر سپورٹ کرے
+            // اگر براؤزر فنگر پرنٹ سپورٹ کرتا ہے تو لاگ ان کے فوراً بعد فنگر پرنٹ مانگے گا
             if (window.PublicKeyCredential) {
                 document.getElementById('backup-login').style.display = 'none';
                 document.getElementById('lock-screen').style.display = 'block';
@@ -210,7 +236,7 @@
         }
     }
 
-    // فنگر پرنٹ کا عمل
+    // بائیومیٹرک اسکیننگ
     function authenticateUser() {
         navigator.credentials.create({
             publicKey: {
@@ -224,13 +250,12 @@
         }).then(function(credential) {
             if (credential) { showDashboard(); }
         }).catch(function(err) {
-            // اگر فنگر پرنٹ کینسل ہو تو واپس لاگ ان پر لے جائیں
             alert("🔒 بائیومیٹرک تصدیق نہیں ہو سکی۔");
             window.location.reload();
         });
     }
 
-    // آنکھ (👁️) والے بٹن کا فکسڈ لاجک
+    // آنکھ (👁️) والا بیلنس ٹوگل فکسڈ لاجک
     function toggleBalance() {
         var balElement = document.getElementById('balance-val');
         var currentSaved = localStorage.getItem('wallet_balance') || "0";
@@ -257,12 +282,9 @@
         localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
     }
 
+    // ڈیش بورڈ کھلتے ہی بیک گراؤنڈ تبدیل ہوگا
     function showDashboard() {
         document.getElementById('lock-screen').style.display = 'none';
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
-    }
-</script>
-
-</body>
-</html>
+        
