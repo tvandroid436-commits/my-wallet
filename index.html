@@ -53,7 +53,55 @@
         .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
         .easypaisa { background: #00a651; }
         
-        /* شروعات میں سب اسکرینز چھپی ہوں گی، جاوا اسکرپٹ فیصلہ کرے گی کون سی دکھانی ہے */
+        /* نیو فیچرز کی اسٹائلنگ */
+        .balance-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            text-align: right;
+            position: relative;
+        }
+        .balance-amount {
+            font-size: 26px;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        .eye-btn {
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            cursor: pointer;
+            font-size: 20px;
+        }
+        .edit-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            padding: 4px 10px;
+            font-size: 11px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .notes-section {
+            margin-top: 25px;
+            text-align: right;
+        }
+        .notes-area {
+            width: 100%;
+            height: 90px;
+            background: #fdfdfd;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+
         #setup-screen, #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
@@ -61,7 +109,7 @@
 
 <div class="container">
 
-    <!-- 1. پہلی بار سیٹ اپ اسکرین -->
+    <!-- 1. سیٹ اپ اسکرین -->
     <div id="setup-screen">
         <h2>والٹ سیٹ اپ کریں</h2>
         <p>پہلی بار لاگ ان کے لیے اپنا یوزر نیم اور پن کوڈ بنائیں۔</p>
@@ -70,7 +118,7 @@
         <button class="btn" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
     </div>
 
-    <!-- 2. فنگر پرنٹ لاک اسکرین (کروم کے لیے) -->
+    <!-- 2. فنگر پرنٹ لاک اسکرین -->
     <div id="lock-screen">
         <div style="font-size: 60px; margin-bottom: 15px;">🛡️</div>
         <h2>میرا محفوظ والٹ</h2>
@@ -78,7 +126,7 @@
         <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
     </div>
 
-    <!-- 3. پن کوڈ لاگ ان اسکرین (بیک اپ اور دوسرے موبائلز کے لیے) -->
+    <!-- 3. پن کوڈ لاگ ان اسکرین -->
     <div id="backup-login">
         <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
         <h2>والٹ لاگ ان</h2>
@@ -88,61 +136,102 @@
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 4. مین ڈیش بورڈ -->
+    <!-- 4. مین ڈیش بورڈ (نئے فیچرز کے ساتھ) -->
     <div id="dashboard">
-        <h2>خوش آمدید!</h2>
-        <div style="background: #764ba2; color:white; padding:15px; border-radius:10px; margin-bottom:20px;">
-            <h3>Rs. 50,000</h3>
+        <div class="balance-card">
+            <div class="eye-btn" onclick="toggleBalance()">👁️</div>
+            <div style="font-size: 12px; opacity: 0.8;">میرا کل بیلنس (PKR)</div>
+            <div id="balance-val" class="balance-amount">Rs. 0</div>
+            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
+
         <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
         <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
+
+        <!-- خفیہ نوٹس سیکشن -->
+        <div class="notes-section">
+            <label style="font-size: 14px; font-weight: bold;">📝 میرے خفیہ نوٹس / اکاؤنٹس:</label>
+            <textarea id="wallet-notes" class="notes-area" placeholder="اپنے ضروری کارڈ نمبرز یا کوڈز یہاں لکھیں، یہ خود بخود محفوظ رہیں گے..." oninput="saveNotes()"></textarea>
+        </div>
     </div>
 
 </div>
 
 <script>
+    var isBalanceHidden = false;
+
     window.onload = function() {
         var savedUser = localStorage.getItem('secure_user');
         var savedPin = localStorage.getItem('secure_pin');
 
-        // اگر ابھی تک یوزر نیم اور پن سیٹ نہیں ہوا
         if (!savedUser || !savedPin) {
             document.getElementById('setup-screen').style.display = 'block';
         } else {
-            // اگر براؤزر فنگر پرنٹ کو سپورٹ کرتا ہے (جیسے کروم)
             if (window.PublicKeyCredential) {
                 document.getElementById('lock-screen').style.display = 'block';
-                authenticateUser(); // آٹو فنگر پرنٹ کھولیں
+                authenticateUser();
             } else {
-                // اگر یو سی براؤزر یا کوئی ایسا موبائل ہے جو سپورٹ نہیں کرتا
                 document.getElementById('backup-login').style.display = 'block';
             }
         }
+
+        // بیلنس لوڈ کریں
+        var savedBalance = localStorage.getItem('wallet_balance');
+        if (savedBalance) {
+            document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
+        } else {
+            document.getElementById('balance-val').innerText = "Rs. 0";
+        }
+
+        // نوٹس لوڈ کریں
+        if (localStorage.getItem('wallet_notes')) {
+            document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
+        }
     };
 
-    // پہلی بار سیٹ اپ سیو کرنے کا فنکشن
+    // بیلنس بدلنے کا فنکشن
+    function editBalance() {
+        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
+        if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
+            localStorage.setItem('wallet_balance', newBal);
+            document.getElementById('balance-val').innerText = "Rs. " + newBal;
+            isBalanceHidden = false;
+        }
+    }
+
+    // بیلنس چھپانے کا فنکشن
+    function toggleBalance() {
+        var balElement = document.getElementById('balance-val');
+        var currentSaved = localStorage.getItem('wallet_balance') || "0";
+        if (isBalanceHidden) {
+            balElement.innerText = "Rs. " + currentSaved;
+            isBalanceHidden = false;
+        } else {
+            balElement.innerText = "******";
+            isBalanceHidden = true;
+        }
+    }
+
+    // نوٹس سیو کرنے کا فنکشن
+    function saveNotes() {
+        localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
+    }
+
     function saveSetup() {
         var u = document.getElementById('setup-user').value.trim();
         var p = document.getElementById('setup-pin').value.trim();
-
         if (u === "" || p.length !== 4 || isNaN(p)) {
-            alert("❌ براہ کرم درست یوزر نیم اور 4 ہندسوں کا پن کوڈ لکھیں!");
+            alert("❌ درست معلومات لکھیں!");
             return;
         }
-
         localStorage.setItem('secure_user', u);
         localStorage.setItem('secure_pin', p);
-        alert("✅ سیکیورٹی لاک کامیابی سے سیٹ ہو گیا ہے!");
+        alert("✅ سیکیورٹی لاک سیٹ ہو گیا!");
         window.location.reload();
     }
 
-    // فنگر پرنٹ بائیومیٹرک کا فنکشن
     function authenticateUser() {
-        if (!window.PublicKeyCredential) {
-            showBackupScreen();
-            return;
-        }
-
+        if (!window.PublicKeyCredential) { showBackupScreen(); return; }
         navigator.credentials.create({
             publicKey: {
                 challenge: new Uint8Array(),
@@ -153,15 +242,8 @@
                 authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
             }
         }).then(function(credential) {
-            if (credential) { 
-                showDashboard(); 
-            } else {
-                showBackupScreen();
-            }
-        }).catch(function(err) {
-            // سیکیورٹی فکس: اگر فنگر پرنٹ فیل ہو، کینسل ہو، یا دوسرا موبائل ہو تو سیدھا پاس ورڈ مانگے گا
-            showBackupScreen();
-        });
+            if (credential) { showDashboard(); } else { showBackupScreen(); }
+        }).catch(function(err) { showBackupScreen(); });
     }
 
     function showBackupScreen() {
@@ -169,19 +251,12 @@
         document.getElementById('backup-login').style.display = 'block';
     }
 
-    // یوزر نیم اور پن کوڈ چیک کرنے کا فنکشن
     function verifyBackupLogin() {
-        var enteredUser = document.getElementById('login-user').value.trim();
-        var enteredPin = document.getElementById('login-pin').value.trim();
-        
-        var savedUser = localStorage.getItem('secure_user');
-        var savedPin = localStorage.getItem('secure_pin');
-
-        if (enteredUser === savedUser && enteredPin === savedPin) {
+        var u = document.getElementById('login-user').value.trim();
+        var p = document.getElementById('login-pin').value.trim();
+        if (u === localStorage.getItem('secure_user') && p === localStorage.getItem('secure_pin')) {
             showDashboard();
-        } else {
-            alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
-        }
+        } else { alert("❌ غلط معلومات!"); }
     }
 
     function showDashboard() {
