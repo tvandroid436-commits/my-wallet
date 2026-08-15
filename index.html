@@ -23,22 +23,23 @@
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 ملٹی کلر پریمیم ہیڈر جو دائیں طرف فکس ہے */
+        /* 🌈 نیا اسٹائلش ہیڈر جو بائیں (Left) طرف شفٹ ہے */
         .vip-header {
-            font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 24px; /* فونٹ سائز تھوڑا چھوٹا کیا تاکہ ایڈجسٹ ہو */
+            font-family: 'Courier New', Courier, monospace; /* فیوچرسٹک لک کے لیے اسٹائل چینج */
+            font-size: 22px; 
             font-weight: 900;
             margin: 15px 0 20px 0;
-            text-align: right;
-            max-width: 250px;
-            margin-right: 5px;
-            margin-left: auto;
-            background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
+            text-align: left; /* ٹیکسٹ کو لیفٹ الائن کیا */
+            max-width: 280px;
+            margin-left: 15px; /* بائیں طرف تھوڑا فاصلہ */
+            margin-right: auto;
+            letter-spacing: 1px;
+            background: linear-gradient(45deg, #00f2fe, #4facfe, #ffd700, #ff007f);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-shadow: 0 2px 10px rgba(0,242,254,0.4);
         }
 
         @keyframes colorAnimation {
@@ -47,21 +48,21 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* پورے والٹ کا دائیں طرف کا کنٹینر - الٹرا فکس */
+        /* پورے والٹ کا دائیں طرف کا کنٹینر */
         .container {
-            max-width: 250px; /* سائز مناسب کیا تاکہ بائیں طرف جگہ بچے */
-            margin-right: 5px; /* دائیں کونے کے بالکل قریب کرنے کے لیے */
+            max-width: 250px; 
+            margin-right: 5px; 
             margin-left: auto;
             box-sizing: border-box;
         }
 
         /* شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.55);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.65); /* تھوڑا زیادہ ڈارک کیا تاکہ ٹیکسٹ صاف دکھے */
+            border: 1px solid rgba(0, 242, 254, 0.25); /* ہلکا نیلا بارڈر فیوچرسٹک لک کے لیے */
             border-radius: 14px;
             padding: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
@@ -87,8 +88,8 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: black;
             border: none;
             padding: 12px 20px;
             font-size: 15px;
@@ -98,27 +99,27 @@
             width: 100%;
         }
 
-        /* ⚡ جاز کیش اور ایزی پیسہ کو ایک ساتھ آمنے سامنے لانے کا الٹرا فکس */
+        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز رو */
         .apps-row {
             display: flex;
-            gap: 10px; /* دونوں بٹنز کے بیچ کا فاصلہ */
+            gap: 10px;
             margin-bottom: 12px;
             width: 100%;
             box-sizing: border-box;
         }
 
         .app-btn {
-            flex: 1; /* دونوں بٹنز برابر آدھا سائز لیں گے */
-            padding: 12px 5px; /* پیڈنگ کم کی تاکہ چھوٹے سائز میں فٹ ہوں */
+            flex: 1;
+            padding: 12px 5px;
             border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 13px; /* فونٹ سائز چھوٹا کیا */
+            font-size: 13px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             text-align: center;
             box-sizing: border-box;
-            white-space: nowrap; /* ٹیکسٹ کو نیچے والی لائن میں جانے سے روکے گا */
+            white-space: nowrap;
         }
 
         .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
@@ -187,9 +188,10 @@
 </head>
 <body class="login-bg">
 
-<div class="container">
-    <div class="vip-header">Sahibzada Umer Siraj</div>
+<!-- نام کا ہیڈر اب کنٹینر سے باہر ہے تاکہ یہ بائیں طرف کھل کر اچھے سے ایڈجسٹ ہو سکے -->
+<div class="vip-header">Sahibzada Umer Siraj</div>
 
+<div class="container">
     <!-- 1. لاگ ان اسکرین -->
     <div id="backup-login" class="glass-button-card login-margin-box">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
@@ -201,7 +203,6 @@
 
     <!-- 2. مین ڈیش بورڈ -->
     <div id="dashboard">
-        
         <!-- بیلنس کارڈ -->
         <div class="glass-button-card">
             <div class="balance-text-group">
@@ -212,7 +213,7 @@
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
 
-        <!-- 📱 جاز کیش اور ایزی پیسہ کے چھوٹے بٹنز اب ایک ہی لائن میں آمنے سامنے آئیں گے -->
+        <!-- بٹنز رو -->
         <div class="apps-row">
             <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
             <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
@@ -223,7 +224,6 @@
             <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
             <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
         </div>
-        
     </div>
 </div>
 
@@ -232,8 +232,11 @@
     var CORRECT_PIN = "1122";
     var isBalanceHidden = false;
 
+    // جیسے ہی پیج لوڈ ہو، یقینی بنائیں کہ لاگ ان فارم نظر آئے اور ڈیش بورڈ چھپا رہے
     window.onload = function() {
         document.getElementById('backup-login').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+        document.body.className = "login-bg";
 
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
@@ -245,7 +248,7 @@
         }
     };
 
-    // لاگ ان کی تصدیق کا فنکشن
+    // لاگ ان ویریفیکیشن
     function verifyBackupLogin() {
         var user = document.getElementById('login-user').value;
         var pin = document.getElementById('login-pin').value;
@@ -253,13 +256,13 @@
         if (user === CORRECT_USER && pin === CORRECT_PIN) {
             document.getElementById('backup-login').style.display = 'none';
             document.getElementById('dashboard').style.display = 'block';
-            document.body.className = "dashboard-bg"; // ڈیش بورڈ بیک گراؤنڈ لانے کے لیے
+            document.body.className = "dashboard-bg";
         } else {
             alert("غلط یوزر نیم یا پن کوڈ درج کیا گیا ہے!");
         }
     }
 
-    // بیلنس چھپانے اور دکھانے کا فنکشن
+    // بیلنس شو / ہائیڈ
     function toggleBalance() {
         var balanceElement = document.getElementById('balance-val');
         if (!isBalanceHidden) {
@@ -274,7 +277,7 @@
         }
     }
 
-    // رقم تبدیل کرنے کا فنکشن
+    // بیلنس ایڈٹ کرنا
     function editBalance() {
         var newBalance = prompt("نئی رقم درج کریں:");
         if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
@@ -284,5 +287,5 @@
         }
     }
 
-    // خفیہ نوٹس سیو کرنے کا فنکشن
+    // نوٹس سیو کرنا
     function saveNotes() {
