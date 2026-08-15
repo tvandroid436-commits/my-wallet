@@ -8,7 +8,7 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
-            padding: 20px;
+            padding: 10px;
             margin: 0;
             min-height: 100vh;
             background-size: cover !important;
@@ -17,29 +17,30 @@
             background-attachment: fixed !important;
             background-color: #0f172a;
             box-sizing: border-box;
+            position: relative;
+            overflow-x: hidden; /* اسکرین کو سائیڈ پر ہلنے سے روکے گا */
         }
         
         /* 🖼️ بیک گراؤنڈ تصاویر */
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 نیا اسٹائلش ہیڈر جو بائیں (Left) طرف شفٹ ہے */
+        /* 🌈 ایک لائن میں موٹا پریمیم ہیڈر جو بائیں طرف سیٹ ہے */
         .vip-header {
-            font-family: 'Courier New', Courier, monospace; /* فیوچرسٹک لک کے لیے اسٹائل چینج */
-            font-size: 22px; 
-            font-weight: 900;
-            margin: 15px 0 20px 0;
-            text-align: left; /* ٹیکسٹ کو لیفٹ الائن کیا */
-            max-width: 280px;
-            margin-left: 15px; /* بائیں طرف تھوڑا فاصلہ */
-            margin-right: auto;
-            letter-spacing: 1px;
+            font-family: 'Arial Black', Gadget, sans-serif; /* زیادہ موٹا اور واضح فونٹ */
+            font-size: 20px; 
+            font-weight: 900; /* الٹرا بولڈ */
+            margin: 15px 0;
+            text-align: left;
+            width: auto; /* چوڑائی کی لیمٹ ختم تاکہ ٹیکسٹ نیچے نہ ٹوٹے */
+            white-space: nowrap; /* نام کو ہر حال میں ایک ہی لائن میں رکھے گا */
+            padding-left: 10px;
             background: linear-gradient(45deg, #00f2fe, #4facfe, #ffd700, #ff007f);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            text-shadow: 0 2px 10px rgba(0,242,254,0.4);
+            text-shadow: 0 2px 12px rgba(0,242,254,0.5);
         }
 
         @keyframes colorAnimation {
@@ -48,29 +49,27 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* پورے والٹ کا دائیں طرف کا کنٹینر */
+        /* 🔒 پورے والٹ کو ہر حال میں اسکرین پر دائیں طرف فکس رکھنے کا ماسٹر فکس */
         .container {
-            max-width: 250px; 
-            margin-right: 5px; 
-            margin-left: auto;
+            position: absolute;
+            right: 10px; /* دائیں کونے سے فاصلہ */
+            top: 140px;  /* اوپر سے پوزیشن */
+            width: 250px; /* فکس چوڑائی تاکہ موبائل اسکرین سے باہر نہ جائے */
             box-sizing: border-box;
+            z-index: 9999; /* سب سے اوپر رکھنے کے لیے */
         }
 
         /* شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.65); /* تھوڑا زیادہ ڈارک کیا تاکہ ٹیکسٹ صاف دکھے */
-            border: 1px solid rgba(0, 242, 254, 0.25); /* ہلکا نیلا بارڈر فیوچرسٹک لک کے لیے */
+            background: rgba(0, 0, 0, 0.75); /* زیادہ ڈارک تاکہ بیک گراؤنڈ میں مکس نہ ہو */
+            border: 1px solid rgba(0, 242, 254, 0.3); 
             border-radius: 14px;
             padding: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
-        }
-
-        /* 🔒 لاگ ان کے ڈبوں کو نیچے کرنے کا مارجن */
-        .login-margin-box {
-            margin-top: 140px; 
+            width: 100%;
         }
 
         .input-field {
@@ -82,7 +81,7 @@
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
-            background: rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.85);
             color: #ffffff;
             outline: none;
         }
@@ -188,12 +187,12 @@
 </head>
 <body class="login-bg">
 
-<!-- نام کا ہیڈر اب کنٹینر سے باہر ہے تاکہ یہ بائیں طرف کھل کر اچھے سے ایڈجسٹ ہو سکے -->
+<!-- 🌈 نام اب بائیں طرف بالکل ایک لائن میں موٹا نظر آئے گا -->
 <div class="vip-header">Sahibzada Umer Siraj</div>
 
 <div class="container">
     <!-- 1. لاگ ان اسکرین -->
-    <div id="backup-login" class="glass-button-card login-margin-box">
+    <div id="backup-login" class="glass-button-card">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
@@ -232,7 +231,7 @@
     var CORRECT_PIN = "1122";
     var isBalanceHidden = false;
 
-    // جیسے ہی پیج لوڈ ہو، یقینی بنائیں کہ لاگ ان فارم نظر آئے اور ڈیش بورڈ چھپا رہے
+    // پیج لوڈ ہوتے ہی سب سے پہلے لاگ ان نظر آئے گا
     window.onload = function() {
         document.getElementById('backup-login').style.display = 'block';
         document.getElementById('dashboard').style.display = 'none';
@@ -248,7 +247,7 @@
         }
     };
 
-    // لاگ ان ویریفیکیشن
+    // لاگ ان ویریفیکیشن کا فنکشن
     function verifyBackupLogin() {
         var user = document.getElementById('login-user').value;
         var pin = document.getElementById('login-pin').value;
@@ -262,7 +261,7 @@
         }
     }
 
-    // بیلنس شو / ہائیڈ
+    // بیلنس ہائیڈ/شو فنکشن
     function toggleBalance() {
         var balanceElement = document.getElementById('balance-val');
         if (!isBalanceHidden) {
@@ -277,15 +276,9 @@
         }
     }
 
-    // بیلنس ایڈٹ کرنا
+    // رقم تبدیل کرنے کا فنکشن
     function editBalance() {
         var newBalance = prompt("نئی رقم درج کریں:");
         if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
             localStorage.setItem('wallet_balance', newBalance);
             document.getElementById('balance-val').innerText = "Rs. " + newBalance;
-            isBalanceHidden = false;
-        }
-    }
-
-    // نوٹس سیو کرنا
-    function saveNotes() {
