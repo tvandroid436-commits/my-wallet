@@ -16,36 +16,23 @@
             background-position: center center !important;
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
-            transition: background 0.5s ease;
+            background-color: #f5f7fa; /* اگر امیج لوڈ نہ ہو تو یہ رنگ دکھے گا */
         }
         
-        /* شروعات میں پہلا بیک گراؤنڈ سیٹ ہوگا */
+        /* 🖼️ پہلے پیج کا درست تصویر لنک */
         body.login-bg {
             background: url('https://ibb.co');
         }
 
-        /* انلاک ہونے کے بعد دوسرا بیک گراؤنڈ سیٹ ہوگا */
+        /* 🖼️ دوسرے پیج کا درست تصویر لنک */
         body.dashboard-bg {
             background: url('https://ibb.co');
-        }
-
-        /* شیشے جیسا خوبصورت اوورلے لک دینے کے لیے */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: -1;
         }
 
         .container {
             max-width: 400px;
             margin: 40px auto;
-            background: rgba(255, 255, 255, 0.92);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
             padding: 30px;
             border-radius: 24px;
             box-shadow: 0 15px 35px rgba(0,0,0,0.2);
@@ -65,7 +52,7 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
+            background: #3498db;
             color: white;
             border: none;
             padding: 14px 30px;
@@ -74,7 +61,6 @@
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
 
         .app-btn {
@@ -99,7 +85,6 @@
             margin-bottom: 20px;
             text-align: right;
             position: relative;
-            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.2);
         }
 
         .balance-amount {
@@ -118,7 +103,6 @@
             padding: 5px 10px;
             border-radius: 50px;
             line-height: 1;
-            user-select: none;
         }
 
         .edit-btn {
@@ -153,7 +137,7 @@
         #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
-<body class="login-bg"> <!-- شروع میں پہلا امیج لوڈ ہوگا -->
+<body class="login-bg"> <!-- یہاں پہلا امیج لوڈ ہوگا -->
 
 <div class="container">
 
@@ -202,10 +186,10 @@
     var isBalanceHidden = false;
 
     window.onload = function() {
-        // ہمیشہ پہلے پیج پر لاگ ان اسکرین دکھائیں
+        // لاگ ان اسکرین دکھائیں
         document.getElementById('backup-login').style.display = 'block';
 
-        // پہلے سے محفوظ بیلنس لوڈ کریں
+        // محفوظ بیلنس لوڈ کریں
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
             document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
@@ -217,13 +201,11 @@
         }
     };
 
-    // لاگ ان ویریفکیشن
     function verifyBackupLogin() {
         var enteredUser = document.getElementById('login-user').value.trim();
         var enteredPin = document.getElementById('login-pin').value.trim();
 
         if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
-            // اگر براؤزر فنگر پرنٹ سپورٹ کرتا ہے تو لاگ ان کے فوراً بعد فنگر پرنٹ مانگے گا
             if (window.PublicKeyCredential) {
                 document.getElementById('backup-login').style.display = 'none';
                 document.getElementById('lock-screen').style.display = 'block';
@@ -236,7 +218,6 @@
         }
     }
 
-    // بائیومیٹرک اسکیننگ
     function authenticateUser() {
         navigator.credentials.create({
             publicKey: {
@@ -255,7 +236,6 @@
         });
     }
 
-    // آنکھ (👁️) والا بیلنس ٹوگل فکسڈ لاجک
     function toggleBalance() {
         var balElement = document.getElementById('balance-val');
         var currentSaved = localStorage.getItem('wallet_balance') || "0";
@@ -270,7 +250,7 @@
     }
 
     function editBalance() {
-        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
+        var newBal = prompt("نیا بیلنس درج کریں (صھرف ہندسے):");
         if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
             localStorage.setItem('wallet_balance', newBal);
             document.getElementById('balance-val').innerText = "Rs. " + newBal;
@@ -282,9 +262,15 @@
         localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
     }
 
-    // ڈیش بورڈ کھلتے ہی بیک گراؤنڈ تبدیل ہوگا
     function showDashboard() {
         document.getElementById('lock-screen').style.display = 'none';
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         
+        // باڈی کلاس تبدیل کر کے دوسری تصویر لگائیں
+        document.body.className = "dashboard-bg";
+    }
+</script>
+
+</body>
+</html>
