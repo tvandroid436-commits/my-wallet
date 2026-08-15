@@ -19,84 +19,96 @@
             box-sizing: border-box;
         }
         
-        /* 🖼️ بیک گراؤنڈ تصاویر (بلر کِک آؤٹ کر دیا ہے تاکہ پکچر صاف دکھے) */
+        /* 🖼️ بیک گراؤنڈ تصاویر */
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* پریمیم انگلش ہیڈر کی اسٹائلینگ */
+        /* 🌈 ملٹی کلر پریمیم ہیڈر */
         .vip-header {
             font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 30px;
-            font-weight: 800;
-            margin: 15px 0 25px 0;
-            text-shadow: 0 0 12px rgba(255, 215, 0, 0.7), 0 0 25px rgba(255, 255, 255, 0.5);
-            background: linear-gradient(135deg, #ffffff 30%, #ffd700 100%);
+            font-size: 26px;
+            font-weight: 900;
+            margin: 15px 0 20px 0;
+            text-align: right;
+            max-width: 280px; /* سائز چھوٹا کر کے رائٹ سائیڈ پر فکس کیا */
+            margin-right: 10px;
+            margin-left: auto;
+            /* ملٹی کلر گریڈینٹ */
+            background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
+            background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            letter-spacing: 1.5px;
-            text-align: right; /* نام بھی رائٹ سائیڈ پر */
-            max-width: 380px;
-            margin-right: 0;
-            margin-left: auto;
+            animation: colorAnimation 6s ease infinite;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
         }
 
-        /* کنٹینر کو رائٹ سائیڈ (ایک طرف) پر سیٹ کر دیا ہے */
+        @keyframes colorAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* پورے کنٹینر کو دائیں طرف ایک چھوٹی پٹی کی شکل دے دی ہے */
         .container {
-            max-width: 380px;
-            margin-right: 0; /* رائٹ الائنمنٹ */
+            max-width: 280px; /* ڈبوں کی چوڑائی مزید چھوٹی کر دی */
+            margin-right: 10px; /* دائیں طرف ایڈجسٹمنٹ */
             margin-left: auto;
             box-sizing: border-box;
         }
 
-        /* ڈبوں سے بلر ختم کر کے انہیں بالکل صاف اور شفاف شیشہ بنا دیا ہے */
+        /* بالکل صاف اور پتلے شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.45); /* ہلکا بلیکش شفاف شیڈ تاکہ ٹیکسٹ نظر آئے */
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 16px;
-            padding: 20px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
-            margin-bottom: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 14px;
+            padding: 15px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+            margin-bottom: 12px;
             text-align: center;
+        }
+
+        /* لاگ ان کے ڈبوں کو تھوڑا نیچے کرنے کے لیے مارجن */
+        .login-margin-box {
+            margin-top: 40px;
         }
 
         .input-field {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
             box-sizing: border-box;
             text-align: center;
-            font-size: 16px;
-            background: rgba(0, 0, 0, 0.6);
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.7);
             color: #ffffff;
             outline: none;
         }
-        .input-field::placeholder { color: #cbd5e1; opacity: 0.9; }
+        .input-field::placeholder { color: #cbd5e1; }
 
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 14px 30px;
-            font-size: 16px;
-            border-radius: 12px;
+            padding: 12px 20px;
+            font-size: 15px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .app-btn {
             display: block;
-            padding: 16px;
-            border-radius: 16px;
+            padding: 14px;
+            border-radius: 14px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 18px;
+            font-size: 16px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             text-align: center;
         }
 
@@ -107,56 +119,57 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 5px 10px;
+            padding: 0 5px;
         }
 
         .balance-amount {
-            font-size: 26px;
+            font-size: 22px;
             font-weight: bold;
             color: #ffd700;
+            margin-top: 5px;
         }
 
         .eye-btn {
             cursor: pointer;
-            font-size: 22px;
-            background: rgba(255,255,255,0.25);
-            padding: 4px 10px;
-            border-radius: 8px;
+            font-size: 18px;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 6px;
             user-select: none;
         }
 
         .edit-btn {
-            background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.25);
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 6px 14px;
-            font-size: 12px;
-            border-radius: 8px;
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 6px;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
+            margin-top: 8px;
             font-weight: bold;
         }
 
         .notes-title {
             text-align: right;
-            font-size: 14px;
+            font-size: 13px;
             font-weight: bold;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
             color: #ffd700;
         }
 
         .notes-area {
             width: 100%;
-            height: 90px;
+            height: 80px;
             background: rgba(0, 0, 0, 0.5);
-            border: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.25);
             color: #ffffff;
-            border-radius: 12px;
-            padding: 12px;
+            border-radius: 10px;
+            padding: 10px;
             box-sizing: border-box;
             resize: none;
-            font-size: 14px;
+            font-size: 13px;
             outline: none;
         }
 
@@ -166,25 +179,25 @@
 <body class="login-bg">
 
 <div class="container">
-    <!-- پریمیم انگلش نام جو رائٹ سائیڈ پر رہے گا -->
+    <!-- ملٹی کلر نام دائیں طرف فکس -->
     <div class="vip-header">Sahibzada Umer Siraj</div>
 
-    <!-- 1. لاگ ان اسکرین (رائٹ سائیڈ پر فکسڈ اور بلر فری) -->
-    <div id="backup-login" class="glass-button-card">
-        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
-        <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 15px;">والٹ انلاک کرنے کے لیے لاگ ان کریں۔</p>
+    <!-- 1. لاگ ان اسکرین (چھوٹی پٹی اور نیچے ایڈجسٹ) -->
+    <div id="backup-login" class="glass-button-card login-margin-box">
+        <div style="font-size: 30px; margin-bottom: 8px;">🔒</div>
+        <p style="color: #e2e8f0; font-size: 13px; margin-bottom: 12px;">والٹ انلاک کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
+        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 2. مین ڈیش بورڈ (رائٹ سائیڈ پر پٹیاں) -->
+    <!-- 2. مین ڈیش بورڈ (دائیں طرف فکسڈ پٹیاں) -->
     <div id="dashboard">
         
         <!-- بیلنس کارڈ -->
         <div class="glass-button-card">
             <div class="balance-text-group">
-                <div style="font-size: 14px; opacity: 0.9;">میرا کل بیلنس (PKR):</div>
+                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
                 <div class="eye-btn" onclick="toggleBalance()">👁️</div>
             </div>
             <div id="balance-val" class="balance-amount">Rs. 0</div>
@@ -197,8 +210,8 @@
 
         <!-- خفیہ نوٹس کارڈ -->
         <div class="glass-button-card">
-            <div class="notes-title">📝 میرے خفیہ نوٹس / اکاؤنٹس:</div>
-            <textarea id="wallet-notes" class="notes-area" placeholder="اپنے ضروری کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
+            <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
+            <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
         </div>
         
     </div>
@@ -229,7 +242,7 @@
         if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
             showDashboard();
         } else {
-            alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
+            alert("❌ غلط یوزر نیم یا پن کوڈ!");
         }
     }
 
@@ -259,10 +272,10 @@
         localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
     }
 
+    // ڈیش بورڈ کھلتے ہی بیک گراؤنڈ کلاس تبدیل کریں
     function showDashboard() {
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
-        
         document.body.className = "dashboard-bg";
     }
 </script>
