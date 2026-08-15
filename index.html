@@ -3,87 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>میرا محفوظ والٹ</title>
+    <title>عمر سراج والٹ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f5f7fa;
+            /* 🖼️ نیچے دیے گئے لنک کی جگہ آپ اپنی تصویر کا انٹرنیٹ لنک لگا سکتے ہیں */
+            background: url('https://unsplash.com') no-repeat center center fixed;
+            background-size: cover;
             color: #2c3e50;
             padding: 20px;
             text-align: center;
+            margin: 0;
+        }
+        /* بیک گراؤنڈ کو تھوڑا دھندلا اور خوبصورت کرنے کے لیے اوورلے */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            z-index: -1;
         }
         .container {
             max-width: 400px;
             margin: 40px auto;
-            background: #ffffff;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
         }
         .input-field {
             width: 100%;
-            padding: 12px;
+            padding: 14px;
             margin-bottom: 15px;
             border: 2px solid #ddd;
-            border-radius: 10px;
+            border-radius: 12px;
             box-sizing: border-box;
             text-align: center;
             font-size: 16px;
+            background: white;
         }
         .btn {
-            background-color: #3498db;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 14px 30px;
             font-size: 16px;
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
         }
         .app-btn {
             display: block;
             padding: 15px;
             margin-bottom: 12px;
-            border-radius: 12px;
+            border-radius: 14px;
             text-decoration: none;
             color: white;
             font-weight: bold;
+            font-size: 16px;
         }
         .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
         .easypaisa { background: #00a651; }
         
-        /* نیو فیچرز کی اسٹائلنگ */
         .balance-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
-            border-radius: 15px;
+            padding: 22px;
+            border-radius: 18px;
             margin-bottom: 20px;
             text-align: right;
             position: relative;
+            box-shadow: 0 8px 20px rgba(118, 75, 162, 0.2);
         }
         .balance-amount {
-            font-size: 26px;
+            font-size: 28px;
             font-weight: bold;
             margin-top: 5px;
         }
         .eye-btn {
             position: absolute;
             left: 20px;
-            top: 20px;
+            top: 22px;
             cursor: pointer;
-            font-size: 20px;
+            font-size: 22px;
+            background: rgba(255,255,255,0.2);
+            padding: 5px 8px;
+            border-radius: 50px;
+            line-height: 1;
         }
         .edit-btn {
-            background: rgba(255,255,255,0.2);
+            background: rgba(255,255,255,0.25);
             border: none;
             color: white;
-            padding: 4px 10px;
-            font-size: 11px;
-            border-radius: 5px;
+            padding: 5px 12px;
+            font-size: 12px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-top: 8px;
+            margin-top: 10px;
         }
         .notes-section {
             margin-top: 25px;
@@ -92,55 +114,46 @@
         .notes-area {
             width: 100%;
             height: 90px;
-            background: #fdfdfd;
+            background: #ffffff;
             border: 1px solid #ddd;
-            border-radius: 10px;
-            padding: 10px;
+            border-radius: 12px;
+            padding: 12px;
             box-sizing: border-box;
             resize: none;
             font-size: 14px;
             margin-top: 5px;
         }
 
-        #setup-screen, #lock-screen, #backup-login, #dashboard { display: none; }
+        #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- 1. سیٹ اپ اسکرین -->
-    <div id="setup-screen">
-        <h2>والٹ سیٹ اپ کریں</h2>
-        <p>پہلی بار لاگ ان کے لیے اپنا یوزر نیم اور پن کوڈ بنائیں۔</p>
-        <input type="text" id="setup-user" class="input-field" placeholder="یوزر نیم لکھیں">
-        <input type="password" id="setup-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
-        <button class="btn" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
-    </div>
-
-    <!-- 2. فنگر پرنٹ لاک اسکرین -->
+    <!-- 1. فنگر پرنٹ لاک اسکرین (صرف تصدیق شدہ براؤزر کے لیے) -->
     <div id="lock-screen">
-        <div style="font-size: 60px; margin-bottom: 15px;">🛡️</div>
+        <div style="font-size: 70px; margin-bottom: 15px;">🛡️</div>
         <h2>میرا محفوظ والٹ</h2>
-        <p>والٹ کھولنے کے لیے نیچے بٹن دبا کر اپنا فنگر پرنٹ لگائیں۔</p>
+        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 25px;">والٹ کھولنے کے لیے نیچے بٹن دبا کر اپنا فنگر پرنٹ لگائیں۔</p>
         <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
     </div>
 
-    <!-- 3. پن کوڈ لاگ ان اسکرین -->
+    <!-- 2. فکسڈ لاگ ان اسکرین (یوزر نیم اور پاس ورڈ کے لیے) -->
     <div id="backup-login">
-        <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+        <div style="font-size: 60px; margin-bottom: 15px;">🔒</div>
         <h2>والٹ لاگ ان</h2>
-        <p>براہ کرم اپنا صحیح یوزر نیم اور پن کوڈ درج کریں۔</p>
+        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 25px;">براہ کرم اپنا مخصوص یوزر نیم اور پن کوڈ درج کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
         <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 4. مین ڈیش بورڈ (نئے فیچرز کے ساتھ) -->
+    <!-- 3. مین ڈیش بورڈ -->
     <div id="dashboard">
         <div class="balance-card">
             <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            <div style="font-size: 12px; opacity: 0.8;">میرا کل بیلنس (PKR)</div>
+            <div style="font-size: 12px; opacity: 0.85;">میرا کل بیلنس (PKR)</div>
             <div id="balance-val" class="balance-amount">Rs. 0</div>
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
@@ -148,39 +161,28 @@
         <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
         <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
 
-        <!-- خفیہ نوٹس سیکشن -->
         <div class="notes-section">
             <label style="font-size: 14px; font-weight: bold;">📝 میرے خفیہ نوٹس / اکاؤنٹس:</label>
-            <textarea id="wallet-notes" class="notes-area" placeholder="اپنے ضروری کارڈ نمبرز یا کوڈز یہاں لکھیں، یہ خود بخود محفوظ رہیں گے..." oninput="saveNotes()"></textarea>
+            <textarea id="wallet-notes" class="notes-area" placeholder="اپنے ضروری کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
         </div>
     </div>
 
 </div>
 
 <script>
+    // یوزر نیم اور پاس ورڈ اب یہاں فکس کر دیا گیا ہے
+    var CORRECT_USER = "UmerSiraj";
+    var CORRECT_PIN = "1122";
     var isBalanceHidden = false;
 
     window.onload = function() {
-        var savedUser = localStorage.getItem('secure_user');
-        var savedPin = localStorage.getItem('secure_pin');
-
-        if (!savedUser || !savedPin) {
-            document.getElementById('setup-screen').style.display = 'block';
-        } else {
-            if (window.PublicKeyCredential) {
-                document.getElementById('lock-screen').style.display = 'block';
-                authenticateUser();
-            } else {
-                document.getElementById('backup-login').style.display = 'block';
-            }
-        }
+        // سیکیورٹی فکس: ہر نئے یا پرانے موبائل پر اب سیدھا لاگ ان اسکرین آئے گی
+        document.getElementById('backup-login').style.display = 'block';
 
         // بیلنس لوڈ کریں
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
             document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
-        } else {
-            document.getElementById('balance-val').innerText = "Rs. 0";
         }
 
         // نوٹس لوڈ کریں
@@ -189,20 +191,50 @@
         }
     };
 
-    // بیلنس بدلنے کا فنکشن
-    function editBalance() {
-        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
-        if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
-            localStorage.setItem('wallet_balance', newBal);
-            document.getElementById('balance-val').innerText = "Rs. " + newBal;
-            isBalanceHidden = false;
+    // لاگ ان ویریفکیشن کا مستقل حل
+    function verifyBackupLogin() {
+        var enteredUser = document.getElementById('login-user').value.trim();
+        var enteredPin = document.getElementById('login-pin').value.trim();
+
+        if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
+            // اگر پہلی بار لاگ ان صحیح ہو جائے، تب فنگر پرنٹ والا آپشن دکھائیں اگر براؤزر سپورٹ کرے
+            if (window.PublicKeyCredential) {
+                document.getElementById('backup-login').style.display = 'none';
+                document.getElementById('lock-screen').style.display = 'block';
+                authenticateUser();
+            } else {
+                showDashboard();
+            }
+        } else {
+            alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
         }
     }
 
-    // بیلنس چھپانے کا فنکشن
+    // فنگر پرنٹ کا عمل
+    function authenticateUser() {
+        navigator.credentials.create({
+            publicKey: {
+                challenge: new Uint8Array(),
+                rp: { name: "Wallet" },
+                user: { id: new Uint8Array(), name: CORRECT_USER, displayName: CORRECT_USER },
+                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+                timeout: 60000,
+                authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
+            }
+        }).then(function(credential) {
+            if (credential) { showDashboard(); }
+        }).catch(function(err) {
+            // اگر فنگر پرنٹ کینسل ہو تو واپس لاگ ان پر لے جائیں
+            alert("🔒 بائیومیٹرک تصدیق نہیں ہو سکی۔");
+            window.location.reload();
+        });
+    }
+
+    // آنکھ (👁️) والے بٹن کا فکسڈ لاجک
     function toggleBalance() {
         var balElement = document.getElementById('balance-val');
         var currentSaved = localStorage.getItem('wallet_balance') || "0";
+        
         if (isBalanceHidden) {
             balElement.innerText = "Rs. " + currentSaved;
             isBalanceHidden = false;
@@ -212,55 +244,20 @@
         }
     }
 
-    // نوٹس سیو کرنے کا فنکشن
+    function editBalance() {
+        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
+        if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
+            localStorage.setItem('wallet_balance', newBal);
+            document.getElementById('balance-val').innerText = "Rs. " + newBal;
+            isBalanceHidden = false;
+        }
+    }
+
     function saveNotes() {
         localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
     }
 
-    function saveSetup() {
-        var u = document.getElementById('setup-user').value.trim();
-        var p = document.getElementById('setup-pin').value.trim();
-        if (u === "" || p.length !== 4 || isNaN(p)) {
-            alert("❌ درست معلومات لکھیں!");
-            return;
-        }
-        localStorage.setItem('secure_user', u);
-        localStorage.setItem('secure_pin', p);
-        alert("✅ سیکیورٹی لاک سیٹ ہو گیا!");
-        window.location.reload();
-    }
-
-    function authenticateUser() {
-        if (!window.PublicKeyCredential) { showBackupScreen(); return; }
-        navigator.credentials.create({
-            publicKey: {
-                challenge: new Uint8Array(),
-                rp: { name: "Wallet" },
-                user: { id: new Uint8Array(), name: localStorage.getItem('secure_user') || "user", displayName: "Owner" },
-                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
-                timeout: 60000,
-                authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
-            }
-        }).then(function(credential) {
-            if (credential) { showDashboard(); } else { showBackupScreen(); }
-        }).catch(function(err) { showBackupScreen(); });
-    }
-
-    function showBackupScreen() {
-        document.getElementById('lock-screen').style.display = 'none';
-        document.getElementById('backup-login').style.display = 'block';
-    }
-
-    function verifyBackupLogin() {
-        var u = document.getElementById('login-user').value.trim();
-        var p = document.getElementById('login-pin').value.trim();
-        if (u === localStorage.getItem('secure_user') && p === localStorage.getItem('secure_pin')) {
-            showDashboard();
-        } else { alert("❌ غلط معلومات!"); }
-    }
-
     function showDashboard() {
-        document.getElementById('setup-screen').style.display = 'none';
         document.getElementById('lock-screen').style.display = 'none';
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
