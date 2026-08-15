@@ -30,10 +30,9 @@
             font-weight: 900;
             margin: 15px 0 20px 0;
             text-align: right;
-            max-width: 280px; /* سائز چھوٹا کر کے رائٹ سائیڈ پر فکس کیا */
+            max-width: 280px;
             margin-right: 10px;
             margin-left: auto;
-            /* ملٹی کلر گریڈینٹ */
             background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
             background-size: 300% 300%;
             -webkit-background-clip: text;
@@ -48,15 +47,15 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* پورے کنٹینر کو دائیں طرف ایک چھوٹی پٹی کی شکل دے دی ہے */
+        /* پورے کنٹینر اور بٹنز کو دائیں طرف فکس اور چھوٹا رکھا ہے */
         .container {
-            max-width: 280px; /* ڈبوں کی چوڑائی مزید چھوٹی کر دی */
-            margin-right: 10px; /* دائیں طرف ایڈجسٹمنٹ */
+            max-width: 280px; 
+            margin-right: 10px; 
             margin-left: auto;
             box-sizing: border-box;
         }
 
-        /* بالکل صاف اور پتلے شیشہ نما کارڈز */
+        /* بالکل صاف اور پتلے شیشہ نما کارڈز اور بٹنز */
         .glass-button-card {
             background: rgba(0, 0, 0, 0.5);
             border: 1px solid rgba(255, 255, 255, 0.2);
@@ -65,9 +64,9 @@
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
             margin-bottom: 12px;
             text-align: center;
+            box-sizing: border-box;
         }
 
-        /* لاگ ان کے ڈبوں کو تھوڑا نیچے کرنے کے لیے مارجن */
         .login-margin-box {
             margin-top: 40px;
         }
@@ -99,8 +98,10 @@
             width: 100%;
         }
 
+        /* جاز کیش اور ایزی پیسہ بٹنز کو چھوٹا اور ایک سائیڈ پر فکس کیا */
         .app-btn {
             display: block;
+            width: 100%;
             padding: 14px;
             border-radius: 14px;
             text-decoration: none;
@@ -110,6 +111,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             margin-bottom: 12px;
             text-align: center;
+            box-sizing: border-box;
         }
 
         .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
@@ -179,10 +181,9 @@
 <body class="login-bg">
 
 <div class="container">
-    <!-- ملٹی کلر نام دائیں طرف فکس -->
     <div class="vip-header">Sahibzada Umer Siraj</div>
 
-    <!-- 1. لاگ ان اسکرین (چھوٹی پٹی اور نیچے ایڈجسٹ) -->
+    <!-- 1. لاگ ان اسکرین -->
     <div id="backup-login" class="glass-button-card login-margin-box">
         <div style="font-size: 30px; margin-bottom: 8px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 13px; margin-bottom: 12px;">والٹ انلاک کریں۔</p>
@@ -191,7 +192,7 @@
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 2. مین ڈیش بورڈ (دائیں طرف فکسڈ پٹیاں) -->
+    <!-- 2. مین ڈیش بورڈ -->
     <div id="dashboard">
         
         <!-- بیلنس کارڈ -->
@@ -204,7 +205,7 @@
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
 
-        <!-- ایپس کے بٹنز -->
+        <!-- ایپس کے بٹنز (اب یہ بھی دائیں طرف چھوٹے سائز میں سیٹ ہیں) -->
         <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
         <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
 
@@ -259,6 +260,7 @@
         }
     }
 
+    // رقم تبدیل کرنے کا بہترین فنکشن
     function editBalance() {
         var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
         if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
@@ -272,7 +274,6 @@
         localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
     }
 
-    // ڈیش بورڈ کھلتے ہی بیک گراؤنڈ کلاس تبدیل کریں
     function showDashboard() {
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
