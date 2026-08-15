@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahibzada Umer Siraj Wallet</title>
+    <title>Sahibzada Umer Siraj Wallet v13</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -23,14 +23,14 @@
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 ملٹی کلر پریمیم ہیڈر */
+        /* 🌈 ملٹی کلر پریمیم ہیڈر جو دائیں طرف فکس ہے */
         .vip-header {
             font-family: 'Montserrat', Arial, sans-serif;
             font-size: 26px;
             font-weight: 900;
             margin: 15px 0 20px 0;
             text-align: right;
-            max-width: 280px;
+            max-width: 250px;
             margin-right: 10px;
             margin-left: auto;
             background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
@@ -38,7 +38,7 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            text-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         @keyframes colorAnimation {
@@ -47,17 +47,17 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* پورے کنٹینر اور بٹنز کو دائیں طرف فکس اور چھوٹا رکھا ہے */
+        /* پورے والٹ کا دائیں طرف کا کنٹینر */
         .container {
-            max-width: 280px; 
+            max-width: 260px; /* چوڑائی کو مزید چھوٹا کر دیا ہے */
             margin-right: 10px; 
             margin-left: auto;
             box-sizing: border-box;
         }
 
-        /* بالکل صاف اور پتلے شیشہ نما کارڈز اور بٹنز */
+        /* شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.55);
             border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 14px;
             padding: 15px;
@@ -67,8 +67,9 @@
             box-sizing: border-box;
         }
 
+        /* 🔒 لاگ ان کے ڈبوں کو بہت زیادہ نیچے کرنے کے لیے مارجن فکس */
         .login-margin-box {
-            margin-top: 40px;
+            margin-top: 140px; /* اوپر سے فاصلہ بڑھا دیا گیا ہے */
         }
 
         .input-field {
@@ -80,11 +81,10 @@
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.8);
             color: #ffffff;
             outline: none;
         }
-        .input-field::placeholder { color: #cbd5e1; }
 
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
@@ -98,16 +98,16 @@
             width: 100%;
         }
 
-        /* جاز کیش اور ایزی پیسہ بٹنز کو چھوٹا اور ایک سائیڈ پر فکس کیا */
+        /* 📱 جاز کیش اور ایزی پیسہ بٹنز کو مزید چھوٹا اور دائیں طرف فکس کیا */
         .app-btn {
             display: block;
-            width: 100%;
-            padding: 14px;
-            border-radius: 14px;
+            width: 100%; /* ڈبے کے اندر ہی فٹ رہے گا */
+            padding: 12px; /* پیڈنگ کم کر دی تاکہ سائز چھوٹا لگے */
+            border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 15px; /* فونٹ سائز چھوٹا کیا */
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
             margin-bottom: 12px;
             text-align: center;
@@ -181,12 +181,13 @@
 <body class="login-bg">
 
 <div class="container">
+    <!-- پریمیم برانڈڈ نام -->
     <div class="vip-header">Sahibzada Umer Siraj</div>
 
-    <!-- 1. لاگ ان اسکرین -->
+    <!-- 1. لاگ ان اسکرین (کافی نیچے سیٹ کر دی گئی ہے) -->
     <div id="backup-login" class="glass-button-card login-margin-box">
-        <div style="font-size: 30px; margin-bottom: 8px;">🔒</div>
-        <p style="color: #e2e8f0; font-size: 13px; margin-bottom: 12px;">والٹ انلاک کریں۔</p>
+        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
+        <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
         <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
@@ -205,7 +206,7 @@
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
 
-        <!-- ایپس کے بٹنز (اب یہ بھی دائیں طرف چھوٹے سائز میں سیٹ ہیں) -->
+        <!-- ایپس کے چھوٹے بٹنز جو اب رائٹ پٹی میں ہی کھلیں گے -->
         <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
         <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
 
@@ -260,7 +261,6 @@
         }
     }
 
-    // رقم تبدیل کرنے کا بہترین فنکشن
     function editBalance() {
         var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
         if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
