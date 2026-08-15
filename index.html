@@ -17,30 +17,28 @@
             background-attachment: fixed !important;
             background-color: #0f172a;
             box-sizing: border-box;
-            position: relative;
-            overflow-x: hidden; /* اسکرین کو سائیڈ پر ہلنے سے روکے گا */
+            overflow-x: hidden; /* اسکرین کو فالتو دائیں بائیں ہلنے سے روکے گا */
         }
         
         /* 🖼️ بیک گراؤنڈ تصاویر */
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 ایک لائن میں موٹا پریمیم ہیڈر جو بائیں طرف سیٹ ہے */
+        /* 🌈 نام کا نیا اسٹائل جو دائیں (Right) طرف شفٹ ہے */
         .vip-header {
-            font-family: 'Arial Black', Gadget, sans-serif; /* زیادہ موٹا اور واضح فونٹ */
-            font-size: 20px; 
-            font-weight: 900; /* الٹرا بولڈ */
-            margin: 15px 0;
-            text-align: left;
-            width: auto; /* چوڑائی کی لیمٹ ختم تاکہ ٹیکسٹ نیچے نہ ٹوٹے */
-            white-space: nowrap; /* نام کو ہر حال میں ایک ہی لائن میں رکھے گا */
-            padding-left: 10px;
-            background: linear-gradient(45deg, #00f2fe, #4facfe, #ffd700, #ff007f);
+            font-family: 'Impact', 'Arial Black', sans-serif; /* نیا بولڈ اور مضبوط اسٹائل */
+            font-size: 24px; 
+            font-weight: bold;
+            margin: 20px 15px 15px 0;
+            text-align: right; /* نام کو دائیں طرف الائن کیا */
+            width: auto;
+            white-space: nowrap; /* نام کو ایک ہی لائن میں رکھنے کے لیے */
+            background: linear-gradient(45deg, #ffd700, #ff007f, #00f2fe, #4facfe);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            text-shadow: 0 2px 12px rgba(0,242,254,0.5);
+            text-shadow: 0 3px 15px rgba(0,0,0,0.6);
         }
 
         @keyframes colorAnimation {
@@ -49,27 +47,26 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 🔒 پورے والٹ کو ہر حال میں اسکرین پر دائیں طرف فکس رکھنے کا ماسٹر فکس */
+        /* 🔒 والٹ کنٹینر جو اسکرین پر بالکل صحیح دائیں طرف نظر آئے گا */
         .container {
-            position: absolute;
-            right: 10px; /* دائیں کونے سے فاصلہ */
-            top: 140px;  /* اوپر سے پوزیشن */
-            width: 250px; /* فکس چوڑائی تاکہ موبائل اسکرین سے باہر نہ جائے */
+            width: 90%;
+            max-width: 260px; 
+            margin-right: 15px; /* دائیں طرف سے محفوظ فاصلہ */
+            margin-left: auto;
+            margin-top: 50px;
             box-sizing: border-box;
-            z-index: 9999; /* سب سے اوپر رکھنے کے لیے */
         }
 
         /* شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.75); /* زیادہ ڈارک تاکہ بیک گراؤنڈ میں مکس نہ ہو */
-            border: 1px solid rgba(0, 242, 254, 0.3); 
+            background: rgba(0, 0, 0, 0.8); /* زیادہ ڈارک بیک گراؤنڈ تاکہ واضح دکھے */
+            border: 1px solid rgba(255, 255, 255, 0.2); 
             border-radius: 14px;
             padding: 15px;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
-            width: 100%;
         }
 
         .input-field {
@@ -81,14 +78,14 @@
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.9);
             color: #ffffff;
             outline: none;
         }
 
         .btn {
-            background: linear-gradient(135deg, #00f2fe, #4facfe);
-            color: black;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
             border: none;
             padding: 12px 20px;
             font-size: 15px;
@@ -98,7 +95,7 @@
             width: 100%;
         }
 
-        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز رو */
+        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
         .apps-row {
             display: flex;
             gap: 10px;
@@ -181,18 +178,16 @@
             font-size: 13px;
             outline: none;
         }
-
-        #backup-login, #dashboard { display: none; }
     </style>
 </head>
 <body class="login-bg">
 
-<!-- 🌈 نام اب بائیں طرف بالکل ایک لائن میں موٹا نظر آئے گا -->
+<!-- 🌈 نام اب دائیں طرف بالکل ایک لائن میں نئے اسٹائل کے ساتھ نظر آئے گا -->
 <div class="vip-header">Sahibzada Umer Siraj</div>
 
 <div class="container">
     <!-- 1. لاگ ان اسکرین -->
-    <div id="backup-login" class="glass-button-card">
+    <div id="backup-login" class="glass-button-card" style="display: block;">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
@@ -201,7 +196,7 @@
     </div>
 
     <!-- 2. مین ڈیش بورڈ -->
-    <div id="dashboard">
+    <div id="dashboard" style="display: none;">
         <!-- بیلنس کارڈ -->
         <div class="glass-button-card">
             <div class="balance-text-group">
@@ -231,11 +226,11 @@
     var CORRECT_PIN = "1122";
     var isBalanceHidden = false;
 
-    // پیج لوڈ ہوتے ہی سب سے پہلے لاگ ان نظر آئے گا
+    // پیج لوڈ کی ترتیبات
     window.onload = function() {
+        // فورس لاک اسکرین آن
         document.getElementById('backup-login').style.display = 'block';
         document.getElementById('dashboard').style.display = 'none';
-        document.body.className = "login-bg";
 
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
@@ -247,7 +242,7 @@
         }
     };
 
-    // لاگ ان ویریفیکیشن کا فنکشن
+    // لاگ ان فنکشن
     function verifyBackupLogin() {
         var user = document.getElementById('login-user').value;
         var pin = document.getElementById('login-pin').value;
@@ -261,7 +256,7 @@
         }
     }
 
-    // بیلنس ہائیڈ/شو فنکشن
+    // بیلنس ہائیڈ/شو
     function toggleBalance() {
         var balanceElement = document.getElementById('balance-val');
         if (!isBalanceHidden) {
@@ -276,9 +271,21 @@
         }
     }
 
-    // رقم تبدیل کرنے کا فنکشن
+    // بیلنس ایڈٹ
     function editBalance() {
         var newBalance = prompt("نئی رقم درج کریں:");
         if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
             localStorage.setItem('wallet_balance', newBalance);
             document.getElementById('balance-val').innerText = "Rs. " + newBalance;
+            isBalanceHidden = false;
+        }
+    }
+
+    // نوٹس سیو
+    function saveNotes() {
+        var notes = document.getElementById('wallet-notes').value;
+        localStorage.setItem('wallet_notes', notes);
+    }
+</script>
+</body>
+</html>
