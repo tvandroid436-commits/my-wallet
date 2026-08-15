@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ur" dir="rtl">
 <head>
@@ -68,6 +67,35 @@
             100% { transform: scale(1); }
         }
 
+        .input-group {
+            margin-bottom: 15px;
+            text-align: right;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: var(--accent-color);
+        }
+
         .btn-auth {
             background-color: var(--accent-color);
             color: white;
@@ -80,10 +108,11 @@
             width: 100%;
             box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
             transition: all 0.3s ease;
+            margin-top: 10px;
         }
 
-        /* Dashboard UI (Hidden by default) */
-        #dashboard {
+        /* Hidden Sections */
+        #backup-login, #dashboard, #setup-screen {
             display: none;
         }
 
@@ -125,12 +154,40 @@
 <body>
 
 <div class="container">
-    <!-- لاک اسکرین -->
+    <!-- پہلی بار سیٹ اپ کرنے کی اسکرین -->
+    <div id="setup-screen" class="card">
+        <div style="font-size: 50px; margin-bottom: 10px;">⚙️</div>
+        <h1>والٹ سیٹ اپ کریں</h1>
+        <p class="status-msg">پہلی بار لاگ ان کے لیے اپنا یوزر نیم اور پن کوڈ سیٹ کریں۔</p>
+        <div class="input-group">
+            <input type="text" id="setup-user" class="input-field" placeholder="اپنا یوزر نیم لکھیں">
+        </div>
+        <div class="input-group">
+            <input type="password" id="setup-pin" class="input-field" pattern="[0-9]*" inputmode="numeric" placeholder="4 ہندسوں کا پن کوڈ لکھیں" maxlength="4">
+        </div>
+        <button class="btn-auth" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
+    </div>
+
+    <!-- فنگر پرنٹ لاک اسکرین (کروم کے لیے) -->
     <div id="lock-screen" class="card">
         <div class="lock-icon" onclick="authenticateUser()">🔒</div>
         <h1>میرا محفوظ والٹ</h1>
         <p class="status-msg">ڈیش بورڈ کھولنے کے لیے نیچے بٹن پر کلک کریں اور اپنا فنگر پرنٹ یا فیس لاک اسکین کریں۔</p>
         <button class="btn-auth" onclick="authenticateUser()">والٹ انلاک کریں</button>
+    </div>
+
+    <!-- بیک اپ لاگ ان اسکرین (یو سی براؤزر وغیرہ کے لیے) -->
+    <div id="backup-login" class="card">
+        <div class="lock-icon">🔒</div>
+        <h1>والٹ لاگ ان</h1>
+        <p class="status-msg">براؤزر سپورٹ نہ ہونے کی وجہ سے براہ کرم یوزر نیم اور پن کوڈ درج کریں۔</p>
+        <div class="input-group">
+            <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
+        </div>
+        <div class="input-group">
+            <input type="password" id="login-pin" class="input-field" pattern="[0-9]*" inputmode="numeric" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
+        </div>
+        <button class="btn-auth" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
     <!-- والٹ ڈیش بورڈ (انلاک ہونے کے بعد دکھے گا) -->
@@ -140,7 +197,6 @@
         <p class="status-msg">آپ کا والٹ کامیابی سے انلاک ہو چکا ہے۔</p>
         
         <div class="app-buttons">
-            <!-- موبائل ایپس کھولنے کے لنکس -->
             <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
             <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
         </div>
@@ -148,39 +204,57 @@
 </div>
 
 <script>
-    // پیج لوڈ ہوتے ہی سیکیورٹی چیک کریں
+    // پیج لوڈ ہوتے ہی سیکیورٹی اور ڈیٹا چیک کریں
     window.onload = function() {
-        // اگر لنک محفوظ (HTTPS) نہیں ہے اور لوکل ہوسٹ بھی نہیں ہے
         if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
             alert("⚠️ سیکیورٹی لاک چیک کرنے کے لیے ویب سائٹ کا لائیو (HTTPS) ہونا ضروری ہے۔");
         }
+
+        // چیک کریں کہ کیا پہلے سے یوزر نیم اور پن سیٹ ہے یا نہیں
+        if (!localStorage.getItem('wallet_user') || !localStorage.getItem('wallet_pin')) {
+            document.getElementById('lock-screen').style.display = 'none';
+            document.getElementById('setup-screen').style.display = 'block';
+        }
     };
+
+    // پہلی بار ڈیٹا سیو کرنے کا فنکشن
+    function saveSetup() {
+        const user = document.getElementById('setup-user').value.trim();
+        const pin = document.getElementById('setup-pin').value.trim();
+
+        if (user === "" || pin.length !== 4 || isNaN(pin)) {
+            alert("❌ براہ کرم درست یوزر نیم اور 4 ہندسوں کا پن کوڈ لکھیں!");
+            return;
+        }
+
+        localStorage.setItem('wallet_user', user);
+        localStorage.setItem('wallet_pin', pin);
+        alert("✅ سیکیورٹی لاک کامیابی سے سیٹ ہو گیا ہے!");
+        location.reload();
+    }
 
     // فنگر پرنٹ / فیس لاک کا فنکشن
     async function authenticateUser() {
-        // چیک کریں کہ کیا براؤزر بائیومیٹرک سپورٹ کرتا ہے
+        // اگر براؤزر بائیومیٹرک سپورٹ نہیں کرتا (جیسے UC Browser)
         if (!window.PublicKeyCredential) {
-            alert("❌ آپ کا براؤزر یا موبائل سیکیورٹی لاک (Biometrics) کو سپورٹ نہیں کرتا۔");
-            // ٹیسٹنگ کے لیے بغیر لاک کے بھی کھول دیتے ہیں
-            showDashboard();
+            switchToBackup();
             return;
         }
 
         try {
-            // یہ براؤزر کا اپنا بائیومیٹرک اسکینر (فنگر پرنٹ/فیس آئی ڈی) کھولے گا
             const credential = await navigator.credentials.create({
                 publicKey: {
-                    challenge: new Uint8Array([1, 2, 3, 4]),
+                    challenge: new Uint8Array([1,2,3,4]),
                     rp: { name: "My Wallet App" },
                     user: {
-                        id: new Uint8Array([1]),
-                        name: "user@wallet",
+                        id: new Uint8Array([1,2,3,4]),
+                        name: localStorage.getItem('wallet_user') || "user",
                         displayName: "Wallet Owner"
                     },
                     pubKeyCredParams: [{ type: "public-key", alg: -7 }],
                     timeout: 60000,
                     authenticatorSelection: {
-                        authenticatorAttachment: "platform", // موبائل کا اپنا لاک سسٹم استعمال کرے گا
+                        authenticatorAttachment: "platform",
                         userVerification: "required"
                     }
                 }
@@ -191,14 +265,36 @@
             }
         } catch (error) {
             console.log(error);
-            // اگر صارف کینسل کر دے یا لوکل ہوسٹ/ایچ ٹی ٹی پی ایس کا ایشو ہو
-            alert("🔒 سیکیورٹی تصدیق نہیں ہو سکی۔ دوبارہ کوشش کریں۔");
+            // اگر فنگر پرنٹ فیل ہو یا براؤزر ایرر دے، تو بیک اپ لاگ ان پر لے جائیں
+            switchToBackup();
+        }
+    }
+
+    // بیک اپ اسکرین دکھانے کا فنکشن
+    function switchToBackup() {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('backup-login').style.display = 'block';
+    }
+
+    // یوزر نیم اور پن کوڈ چیک کرنے کا فنکشن
+    function verifyBackupLogin() {
+        const enteredUser = document.getElementById('login-user').value.trim();
+        const enteredPin = document.getElementById('login-pin').value.trim();
+
+        const savedUser = localStorage.getItem('wallet_user');
+        const savedPin = localStorage.getItem('wallet_pin');
+
+        if (enteredUser === savedUser && enteredPin === savedPin) {
+            showDashboard();
+        } else {
+            alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
         }
     }
 
     // ڈیش بورڈ دکھانے کا فنکشن
     function showDashboard() {
         document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
     }
 </script>
