@@ -38,7 +38,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            /* ٹیکسٹ کے پیچھے بلیک شیڈو تاکہ امیج پر واضح دیکھے */
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
         }
 
@@ -48,38 +47,38 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 🔒 والٹ کنٹینر - لاگ ان باکس کو پیٹ تک (نیچے) لانے کے لیے مارجن بڑھا دیا گیا ہے */
+        /* 🔒 والٹ کنٹینر پوزیشن */
         .container {
             width: 90%;
-            max-width: 270px; /* سائز تھوڑا چوڑا کیا تاکہ اسکرین شاٹ کی طرح فٹ آئے */
+            max-width: 270px; 
             margin-right: auto; 
-            margin-left: auto; /* دونوں طرف آٹو کرنے سے یہ ہورائزنٹل سینٹر رہے گا */
-            margin-top: 290px; /* ۵۰ اور ۱۴۰ سے بڑھا کر ۲۹۰ کر دیا تاکہ بالکل نیچے پیٹ تک آ جائے */
+            margin-left: auto;
+            margin-top: 290px; 
             box-sizing: border-box;
         }
 
-        /* شیشہ نما کارڈز */
+        /* 🪄 شیشہ نما کارڈز - یہاں سے بلیک بیک گراؤنڈ اور بارڈر ختم کر دیا ہے */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.82); /* تھوڑا اور گہرا شیشہ لک */
-            border: 1px solid rgba(255, 255, 255, 0.18); 
-            border-radius: 16px;
-            padding: 18px;
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
+            background: transparent; /* بلیک باکس ختم کرنے کے لیے ٹرانسپیرنٹ کیا */
+            border: none; /* بارڈر لائن ختم کر دی */
+            padding: 10px;
+            box-shadow: none; /* بیرونی سایہ ختم کر دیا */
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
         }
 
+        /* انپٹ باکسز کا اسٹائل برقرار رکھا تاکہ ٹیکسٹ لکھنے کی جگہ نظر آتی رہے */
         .input-field {
             width: 100%;
-            padding: 14px; /* انپٹ باکسز کو اسکرین شاٹ کی طرح بڑا اور خوبصورت کیا */
+            padding: 14px; 
             margin-bottom: 12px;
             border: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 12px;
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.85); /* باکسز کے اندر کا بلیک کلر برقرار ہے تاکہ لکھائی صاف نظر آئے */
             color: #ffffff;
             outline: none;
         }
