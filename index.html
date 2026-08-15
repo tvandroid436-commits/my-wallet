@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sahibzada Umer Siraj Wallet v13</title>
+    <title>Sahibzada Umer Siraj Wallet v14</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -30,7 +30,7 @@
             font-weight: 900;
             margin: 15px 0 20px 0;
             text-align: right;
-            max-width: 250px;
+            max-width: 260px;
             margin-right: 10px;
             margin-left: auto;
             background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
@@ -49,7 +49,7 @@
 
         /* پورے والٹ کا دائیں طرف کا کنٹینر */
         .container {
-            max-width: 260px; /* چوڑائی کو مزید چھوٹا کر دیا ہے */
+            max-width: 260px; 
             margin-right: 10px; 
             margin-left: auto;
             box-sizing: border-box;
@@ -67,9 +67,9 @@
             box-sizing: border-box;
         }
 
-        /* 🔒 لاگ ان کے ڈبوں کو بہت زیادہ نیچے کرنے کے لیے مارجن فکس */
+        /* 🔒 لاگ ان کے ڈبوں کو نیچے کرنے کا مارجن */
         .login-margin-box {
-            margin-top: 140px; /* اوپر سے فاصلہ بڑھا دیا گیا ہے */
+            margin-top: 140px; 
         }
 
         .input-field {
@@ -98,20 +98,27 @@
             width: 100%;
         }
 
-        /* 📱 جاز کیش اور ایزی پیسہ بٹنز کو مزید چھوٹا اور دائیں طرف فکس کیا */
+        /* ⚡ جاز کیش اور ایزی پیسہ کو ایک ساتھ آمنے سامنے لانے کا الٹرا فکس */
+        .apps-row {
+            display: flex;
+            gap: 10px; /* دونوں بٹنز کے بیچ کا فاصلہ */
+            margin-bottom: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
         .app-btn {
-            display: block;
-            width: 100%; /* ڈبے کے اندر ہی فٹ رہے گا */
-            padding: 12px; /* پیڈنگ کم کر دی تاکہ سائز چھوٹا لگے */
+            flex: 1; /* دونوں بٹنز برابر آدھا سائز لیں گے */
+            padding: 12px 5px; /* پیڈنگ کم کی تاکہ چھوٹے سائز میں فٹ ہوں */
             border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 15px; /* فونٹ سائز چھوٹا کیا */
+            font-size: 13px; /* فونٹ سائز چھوٹا کیا */
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
+            white-space: nowrap; /* ٹیکسٹ کو نیچے والی لائن میں جانے سے روکے گا */
         }
 
         .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
@@ -181,10 +188,9 @@
 <body class="login-bg">
 
 <div class="container">
-    <!-- پریمیم برانڈڈ نام -->
     <div class="vip-header">Sahibzada Umer Siraj</div>
 
-    <!-- 1. لاگ ان اسکرین (کافی نیچے سیٹ کر دی گئی ہے) -->
+    <!-- 1. لاگ ان اسکرین -->
     <div id="backup-login" class="glass-button-card login-margin-box">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
@@ -206,9 +212,11 @@
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
 
-        <!-- ایپس کے چھوٹے بٹنز جو اب رائٹ پٹی میں ہی کھلیں گے -->
-        <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
-        <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
+        <!-- 📱 جاز کیش اور ایزی پیسہ کے چھوٹے بٹنز اب ایک ہی لائن میں آمنے سامنے آئیں گے -->
+        <div class="apps-row">
+            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
+            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
+        </div>
 
         <!-- خفیہ نوٹس کارڈ -->
         <div class="glass-button-card">
