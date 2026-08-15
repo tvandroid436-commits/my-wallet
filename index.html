@@ -1,88 +1,207 @@
+
 <!DOCTYPE html>
-<html lang="ur">
+<html lang="ur" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>میرا فنانشل ڈیش بورڈ</title>
+    <title>میرا والٹ - محفوظ ڈیش بورڈ</title>
     <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --bg-color: #f5f6fa;
+            --card-bg: #ffffff;
+            --text-color: #333333;
+        }
+
         body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #f4f4f9;
-            padding: 50px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
         .container {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
-            max-width: 400px;
-            margin: auto;
-        }
-        .btn {
-            display: block;
             width: 100%;
-            padding: 15px;
-            margin: 15px 0;
-            font-size: 18px;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            text-decoration: none;
+            max-width: 400px;
+            padding: 20px;
             box-sizing: border-box;
         }
-        .jazzcash { background-color: #ff0000; } /* سرخ رنگ */
-        .easypaisa { background-color: #00b050; } /* سبز رنگ */
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .status-msg {
+            color: #7f8c8d;
+            font-size: 14px;
+            margin-bottom: 25px;
+        }
+
+        /* Lock Screen UI */
+        .lock-icon {
+            font-size: 60px;
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            cursor: pointer;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .btn-auth {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        /* Dashboard UI (Hidden by default) */
+        #dashboard {
+            display: none;
+        }
+
+        .app-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .app-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 15px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            transition: transform 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        .app-btn:active {
+            transform: scale(0.98);
+        }
+
+        .jazzcash {
+            background: linear-gradient(135deg, #000000, #ffcc00);
+            color: #fff;
+        }
+
+        .easypaisa {
+            background: linear-gradient(135deg, #00a651, #00713d);
+        }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <h2>میرا والیٹ والٹ</h2>
-        <p>نیچے دیے گئے بٹن پر کلک کر کے اپنی ایپس کھولیں:</p>
-        
-        <!-- یہ لنکس موبائل میں آفیشل ایپس کو کھولنے کی کوشش کریں گے -->
-        <a href="jazzcash://" class="btn jazzcash">JazzCash کھولیں</a>
-        <a href="easypaisa://" class="btn easypaisa">EasyPaisa کھولیں</a>
+<div class="container">
+    <!-- لاک اسکرین -->
+    <div id="lock-screen" class="card">
+        <div class="lock-icon" onclick="authenticateUser()">🔒</div>
+        <h1>میرا محفوظ والٹ</h1>
+        <p class="status-msg">ڈیش بورڈ کھولنے کے لیے نیچے بٹن پر کلک کریں اور اپنا فنگر پرنٹ یا فیس لاک اسکین کریں۔</p>
+        <button class="btn-auth" onclick="authenticateUser()">والٹ انلاک کریں</button>
     </div>
 
-    <script>
-    // جیسے ہی پیج لوڈ ہوگا، یہ کوڈ سیکیورٹی لاک ایکٹیویٹ کرے گا
-    window.onload = async function() {
-        // چیک کریں کہ کیا براؤزر بائیو میٹرک سیکیورٹی سپورٹ کرتا ہے
-        if (window.PublicKeyCredential) {
-            try {
-                // یہ براؤزر کو فنگر پرنٹ یا فیس لاک اوپن کرنے کا کہتا ہے
-                const challengeBuffer = new Uint8Array(32);
-                window.crypto.getRandomValues(challengeBuffer);
+    <!-- والٹ ڈیش بورڈ (انلاک ہونے کے بعد دکھے گا) -->
+    <div id="dashboard" class="card">
+        <div style="font-size: 50px; margin-bottom: 10px;">🔓</div>
+        <h1>خوش آمدید!</h1>
+        <p class="status-msg">آپ کا والٹ کامیابی سے انلاک ہو چکا ہے۔</p>
+        
+        <div class="app-buttons">
+            <!-- موبائل ایپس کھولنے کے لنکس -->
+            <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
+            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
+        </div>
+    </div>
+</div>
 
-                const credential = await navigator.credentials.create({
-                    publicKey: {
-                        challenge: challengeBuffer,
-                        rp: { name: "My Secure Wallet" },
-                        user: {
-                            id: new Uint8Array([1, 2, 3, 4]),
-                            name: "user@example.com",
-                            displayName: "User"
-                        },
-                        pubKeyCredParams: [{ type: "public-key", alg: -7 }] // ES256 الگورتھم
-                    }
-                });
-                
-                if (credential) {
-                    alert("🔐 لاگ ان کامیاب! خوش آمدید۔");
-                }
-            } catch (err) {
-                // اگر آپ ابھی لوکل موبائل (بدون HTTPS) پر ٹیسٹ کر رہے ہیں تو یہ میسج آئے گا
-                alert("⚠️ سیکیورٹی لاک چیک کرنے کے لیے ویب سائٹ کا لائیو (HTTPS) ہونا ضروری ہے۔");
-                console.log(err);
-            }
-        } else {
-            alert("❌ آپ کا براؤزر فنگر پرنٹ سیکیورٹی سپورٹ نہیں کرتا۔");
+<script>
+    // پیج لوڈ ہوتے ہی سیکیورٹی چیک کریں
+    window.onload = function() {
+        // اگر لنک محفوظ (HTTPS) نہیں ہے اور لوکل ہوسٹ بھی نہیں ہے
+        if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+            alert("⚠️ سیکیورٹی لاک چیک کرنے کے لیے ویب سائٹ کا لائیو (HTTPS) ہونا ضروری ہے۔");
         }
     };
-    </script>
+
+    // فنگر پرنٹ / فیس لاک کا فنکشن
+    async function authenticateUser() {
+        // چیک کریں کہ کیا براؤزر بائیومیٹرک سپورٹ کرتا ہے
+        if (!window.PublicKeyCredential) {
+            alert("❌ آپ کا براؤزر یا موبائل سیکیورٹی لاک (Biometrics) کو سپورٹ نہیں کرتا۔");
+            // ٹیسٹنگ کے لیے بغیر لاک کے بھی کھول دیتے ہیں
+            showDashboard();
+            return;
+        }
+
+        try {
+            // یہ براؤزر کا اپنا بائیومیٹرک اسکینر (فنگر پرنٹ/فیس آئی ڈی) کھولے گا
+            const credential = await navigator.credentials.create({
+                publicKey: {
+                    challenge: new Uint8Array([1, 2, 3, 4]),
+                    rp: { name: "My Wallet App" },
+                    user: {
+                        id: new Uint8Array([1]),
+                        name: "user@wallet",
+                        displayName: "Wallet Owner"
+                    },
+                    pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+                    timeout: 60000,
+                    authenticatorSelection: {
+                        authenticatorAttachment: "platform", // موبائل کا اپنا لاک سسٹم استعمال کرے گا
+                        userVerification: "required"
+                    }
+                }
+            });
+
+            if (credential) {
+                showDashboard();
+            }
+        } catch (error) {
+            console.log(error);
+            // اگر صارف کینسل کر دے یا لوکل ہوسٹ/ایچ ٹی ٹی پی ایس کا ایشو ہو
+            alert("🔒 سیکیورٹی تصدیق نہیں ہو سکی۔ دوبارہ کوشش کریں۔");
+        }
+    }
+
+    // ڈیش بورڈ دکھانے کا فنکشن
+    function showDashboard() {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
+    }
+</script>
 
 </body>
 </html>
