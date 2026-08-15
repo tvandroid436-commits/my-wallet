@@ -24,12 +24,12 @@
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 نام کا اسٹائل جو دائیں (Right) طرف شفٹ ہے */
+        /* 🌈 نام کا اسٹائل جو دائیں (Right) طرف پریمیم گلو کے ساتھ ہے */
         .vip-header {
             font-family: 'Impact', 'Arial Black', sans-serif;
             font-size: 24px; 
             font-weight: bold;
-            margin: 20px 15px 15px 0;
+            margin: 25px 20px 10px 0;
             text-align: right;
             width: auto;
             white-space: nowrap;
@@ -38,7 +38,8 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             animation: colorAnimation 6s ease infinite;
-            text-shadow: 0 3px 15px rgba(0,0,0,0.6);
+            /* ٹیکسٹ کے پیچھے بلیک شیڈو تاکہ امیج پر واضح دیکھے */
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
         }
 
         @keyframes colorAnimation {
@@ -47,23 +48,23 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 🔒 والٹ کنٹینر - باکسز کو نیچے کرنے کے لیے مارجن ٹاپ بڑھا دیا گیا ہے */
+        /* 🔒 والٹ کنٹینر - لاگ ان باکس کو پیٹ تک (نیچے) لانے کے لیے مارجن بڑھا دیا گیا ہے */
         .container {
             width: 90%;
-            max-width: 260px; 
-            margin-right: 15px; 
-            margin-left: auto;
-            margin-top: 140px; /* لاگ ان باکس کو نیچے لانے کے لیے ۵۰ سے ۱۴۰ کر دیا */
+            max-width: 270px; /* سائز تھوڑا چوڑا کیا تاکہ اسکرین شاٹ کی طرح فٹ آئے */
+            margin-right: auto; 
+            margin-left: auto; /* دونوں طرف آٹو کرنے سے یہ ہورائزنٹل سینٹر رہے گا */
+            margin-top: 290px; /* ۵۰ اور ۱۴۰ سے بڑھا کر ۲۹۰ کر دیا تاکہ بالکل نیچے پیٹ تک آ جائے */
             box-sizing: border-box;
         }
 
         /* شیشہ نما کارڈز */
         .glass-button-card {
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.2); 
-            border-radius: 14px;
-            padding: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.82); /* تھوڑا اور گہرا شیشہ لک */
+            border: 1px solid rgba(255, 255, 255, 0.18); 
+            border-radius: 16px;
+            padding: 18px;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.85);
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
@@ -71,10 +72,10 @@
 
         .input-field {
             width: 100%;
-            padding: 12px;
+            padding: 14px; /* انپٹ باکسز کو اسکرین شاٹ کی طرح بڑا اور خوبصورت کیا */
             margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
@@ -87,12 +88,13 @@
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             border: none;
-            padding: 12px 20px;
-            font-size: 15px;
-            border-radius: 10px;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
         }
 
         /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
