@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ur">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>میرا فنانشل ڈیش بورڈ</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f9;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+            max-width: 400px;
+            margin: auto;
+        }
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 18px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            box-sizing: border-box;
+        }
+        .jazzcash { background-color: #ff0000; } /* سرخ رنگ */
+        .easypaisa { background-color: #00b050; } /* سبز رنگ */
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>میرا والیٹ والٹ</h2>
+        <p>نیچے دیے گئے بٹن پر کلک کر کے اپنی ایپس کھولیں:</p>
+        
+        <!-- یہ لنکس موبائل میں آفیشل ایپس کو کھولنے کی کوشش کریں گے -->
+        <a href="jazzcash://" class="btn jazzcash">JazzCash کھولیں</a>
+        <a href="easypaisa://" class="btn easypaisa">EasyPaisa کھولیں</a>
+    </div>
+
+    <script>
+    // جیسے ہی پیج لوڈ ہوگا، یہ کوڈ سیکیورٹی لاک ایکٹیویٹ کرے گا
+    window.onload = async function() {
+        // چیک کریں کہ کیا براؤزر بائیو میٹرک سیکیورٹی سپورٹ کرتا ہے
+        if (window.PublicKeyCredential) {
+            try {
+                // یہ براؤزر کو فنگر پرنٹ یا فیس لاک اوپن کرنے کا کہتا ہے
+                const challengeBuffer = new Uint8Array(32);
+                window.crypto.getRandomValues(challengeBuffer);
+
+                const credential = await navigator.credentials.create({
+                    publicKey: {
+                        challenge: challengeBuffer,
+                        rp: { name: "My Secure Wallet" },
+                        user: {
+                            id: new Uint8Array([1, 2, 3, 4]),
+                            name: "user@example.com",
+                            displayName: "User"
+                        },
+                        pubKeyCredParams: [{ type: "public-key", alg: -7 }] // ES256 الگورتھم
+                    }
+                });
+                
+                if (credential) {
+                    alert("🔐 لاگ ان کامیاب! خوش آمدید۔");
+                }
+            } catch (err) {
+                // اگر آپ ابھی لوکل موبائل (بدون HTTPS) پر ٹیسٹ کر رہے ہیں تو یہ میسج آئے گا
+                alert("⚠️ سیکیورٹی لاک چیک کرنے کے لیے ویب سائٹ کا لائیو (HTTPS) ہونا ضروری ہے۔");
+                console.log(err);
+            }
+        } else {
+            alert("❌ آپ کا براؤزر فنگر پرنٹ سیکیورٹی سپورٹ نہیں کرتا۔");
+        }
+    };
+    </script>
+
+</body>
+</html>
