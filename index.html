@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عمر سراج والٹ</title>
+    <title>صاحبزادہ عمر سراج والٹ</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            color: #2c3e50;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
             padding: 20px;
             text-align: center;
             margin: 0;
@@ -16,167 +16,191 @@
             background-position: center center !important;
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
-            background-color: #f5f7fa;
+            background-color: #0f172a;
+            box-sizing: border-box;
         }
         
-        /* 🖼️ پہلے پیج کا گٹ ہب لوکل لنک */
-        body.login-bg {
-            background: url('pic1.jpg');
-        }
+        /* 🖼️ بیک گراؤنڈ تصاویر */
+        body.login-bg { background: url('pic1.jpg'); }
+        body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🖼️ دوسرے پیج کا گٹ ہب لوکل لنک */
-        body.dashboard-bg {
-            background: url('pic2.jpg');
+        /* وی آئی پی نام کی اسٹائلینگ */
+        .vip-header {
+            font-size: 28px;
+            font-weight: bold;
+            margin: 20px 0 30px 0;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.6), 0 0 20px rgba(255, 255, 255, 0.4);
+            background: linear-gradient(135deg, #ffffff 0%, #ffd700 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 1px;
         }
 
         .container {
-            max-width: 400px;
-            margin: 40px auto;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 24px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            max-width: 380px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* تمام کارڈز کو بٹن اور شیشے (Glassmorphism) کی شکل دے دی ہے */
+        .glass-button-card {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            margin-bottom: 15px;
+            text-align: center;
         }
 
         .input-field {
             width: 100%;
             padding: 14px;
-            margin-bottom: 15px;
-            border: 2px solid #ddd;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
             border-radius: 12px;
             box-sizing: border-box;
             text-align: center;
             font-size: 16px;
-            background: white;
+            background: rgba(0, 0, 0, 0.4);
+            color: #ffffff;
             outline: none;
         }
+        .input-field::placeholder { color: #cbd5e1; opacity: 0.8; }
 
         .btn {
-            background: #3498db;
+            background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
             border: none;
             padding: 14px 30px;
             font-size: 16px;
-            border-radius: 50px;
+            border-radius: 12px;
             cursor: pointer;
             font-weight: bold;
             width: 100%;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s;
         }
+        .btn:active { transform: scale(0.98); }
 
         .app-btn {
             display: block;
-            padding: 15px;
-            margin-bottom: 12px;
-            border-radius: 14px;
+            padding: 16px;
+            border-radius: 16px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 16px;
+            font-size: 18px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            margin-bottom: 15px;
+            transition: transform 0.2s;
         }
+        .app-btn:active { transform: scale(0.98); }
 
-        .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
-        .easypaisa { background: #00a651; }
+        .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
+        .easypaisa { background: linear-gradient(135deg, #00a651, #00713d); }
         
-        .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 22px;
-            border-radius: 18px;
-            margin-bottom: 20px;
-            text-align: right;
-            position: relative;
+        .balance-text-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 10px;
         }
 
         .balance-amount {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: bold;
-            margin-top: 5px;
+            color: #ffd700;
         }
 
         .eye-btn {
-            position: absolute;
-            left: 20px;
-            top: 22px;
             cursor: pointer;
             font-size: 22px;
-            background: rgba(255,255,255,0.25);
-            padding: 5px 10px;
-            border-radius: 50px;
-            line-height: 1;
+            background: rgba(255,255,255,0.2);
+            padding: 4px 10px;
+            border-radius: 8px;
+            user-select: none;
         }
 
         .edit-btn {
-            background: rgba(255,255,255,0.25);
-            border: none;
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 5px 12px;
+            padding: 6px 14px;
             font-size: 12px;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
+            width: 100%;
             margin-top: 10px;
+            font-weight: bold;
         }
 
-        .notes-section {
-            margin-top: 25px;
+        .notes-title {
             text-align: right;
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #ffd700;
         }
 
         .notes-area {
             width: 100%;
             height: 90px;
-            background: #ffffff;
-            border: 1px solid #ddd;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
             border-radius: 12px;
             padding: 12px;
             box-sizing: border-box;
             resize: none;
             font-size: 14px;
-            margin-top: 5px;
+            outline: none;
         }
 
-        #lock-screen, #backup-login, #dashboard { display: none; }
+        #backup-login, #dashboard { display: none; }
     </style>
 </head>
 <body class="login-bg">
 
 <div class="container">
+    <!-- شاہی ہیڈر جو ہمیشہ اوپر رہے گا -->
+    <div class="vip-header">صاحبزادہ عمر سراج</div>
 
-    <!-- 1. فنگر پرنٹ لاک اسکرین -->
-    <div id="lock-screen">
-        <div style="font-size: 70px; margin-bottom: 15px;">🛡️</div>
-        <h2>میرا محفوظ والٹ</h2>
-        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 25px;">والٹ کھولنے کے لیے نیچے بٹن دبا کر اپنا فنگر پرنٹ لگائیں۔</p>
-        <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
-    </div>
-
-    <!-- 2. لاگ ان اسکرین -->
-    <div id="backup-login">
-        <div style="font-size: 60px; margin-bottom: 15px;">🔒</div>
-        <h2>والٹ لاگ ان</h2>
-        <p style="color: #7f8c8d; font-size: 14px; margin-bottom: 25px;">براہ کرم اپنا مخصوص یوزر نیم اور پن کوڈ درج کریں۔</p>
+    <!-- 1. لاگ ان اسکرین (بٹن اور شیشے کے لک میں فکس) -->
+    <div id="backup-login" class="glass-button-card">
+        <div style="font-size: 40px; margin-bottom: 10px;">🔒</div>
+        <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 15px;">والٹ انلاک کرنے کے لیے لاگ ان کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
         <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 3. مین ڈیش بورڈ -->
+    <!-- 2. مین ڈیش بورڈ (علیحدہ الگ الگ پٹیاں/بٹنز) -->
     <div id="dashboard">
-        <div class="balance-card">
-            <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            <div style="font-size: 12px; opacity: 0.85;">میرا کل بیلنس (PKR)</div>
+        
+        <!-- بیلنس بٹن کارڈ -->
+        <div class="glass-button-card">
+            <div class="balance-text-group">
+                <div style="font-size: 14px; opacity: 0.9;">میرا کل بیلنس (PKR):</div>
+                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
+            </div>
             <div id="balance-val" class="balance-amount">Rs. 0</div>
             <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
         </div>
 
+        <!-- ایپس کے لنکس (علیحدہ الگ بٹنز) -->
         <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
         <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
 
-        <div class="notes-section">
-            <label style="font-size: 14px; font-weight: bold;">📝 میرے خفیہ نوٹس / اکاؤنٹس:</label>
+        <!-- خفیہ نوٹس بٹن کارڈ -->
+        <div class="glass-button-card">
+            <div class="notes-title">📝 میرے خفیہ نوٹس / اکاؤنٹس:</div>
             <textarea id="wallet-notes" class="notes-area" placeholder="اپنے ضروری کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
         </div>
+        
     </div>
-
 </div>
 
 <script>
@@ -186,51 +210,31 @@
     var isBalanceHidden = false;
 
     window.onload = function() {
+        // سیدھا لاگ ان اسکرین دکھائیں
         document.getElementById('backup-login').style.display = 'block';
 
+        // محفوظ شدہ بیلنس لوڈ کریں
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
             document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
         }
 
+        // محفوظ شدہ نوٹس لوڈ کریں
         if (localStorage.getItem('wallet_notes')) {
             document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
         }
     };
 
+    // لاگ ان کی تصدیق کا فنکشن
     function verifyBackupLogin() {
         var enteredUser = document.getElementById('login-user').value.trim();
         var enteredPin = document.getElementById('login-pin').value.trim();
 
         if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
-            if (window.PublicKeyCredential) {
-                document.getElementById('backup-login').style.display = 'none';
-                document.getElementById('lock-screen').style.display = 'block';
-                authenticateUser();
-            } else {
-                showDashboard();
-            }
+            showDashboard();
         } else {
             alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
         }
-    }
-
-    function authenticateUser() {
-        navigator.credentials.create({
-            publicKey: {
-                challenge: new Uint8Array(),
-                rp: { name: "Wallet" },
-                user: { id: new Uint8Array(), name: CORRECT_USER, displayName: CORRECT_USER },
-                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
-                timeout: 60000,
-                authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
-            }
-        }).then(function(credential) {
-            if (credential) { showDashboard(); }
-        }).catch(function(err) {
-            alert("🔒 بائیومیٹرک تصدیق نہیں ہو سکی۔");
-            window.location.reload();
-        });
     }
 
     function toggleBalance() {
@@ -260,10 +264,10 @@
     }
 
     function showDashboard() {
-        document.getElementById('lock-screen').style.display = 'none';
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         
+        // ڈیش بورڈ کھلتے ہی بیک گراؤنڈ کلاس تبدیل کریں
         document.body.className = "dashboard-bg";
     }
 </script>
