@@ -26,12 +26,12 @@
         /* 🌈 ملٹی کلر پریمیم ہیڈر جو دائیں طرف فکس ہے */
         .vip-header {
             font-family: 'Montserrat', Arial, sans-serif;
-            font-size: 26px;
+            font-size: 24px; /* فونٹ سائز تھوڑا چھوٹا کیا تاکہ ایڈجسٹ ہو */
             font-weight: 900;
             margin: 15px 0 20px 0;
             text-align: right;
-            max-width: 260px;
-            margin-right: 10px;
+            max-width: 250px;
+            margin-right: 5px;
             margin-left: auto;
             background: linear-gradient(45deg, #ff007f, #ffd700, #00f2fe, #4facfe);
             background-size: 300% 300%;
@@ -47,10 +47,10 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* پورے والٹ کا دائیں طرف کا کنٹینر */
+        /* پورے والٹ کا دائیں طرف کا کنٹینر - الٹرا فکس */
         .container {
-            max-width: 260px; 
-            margin-right: 10px; 
+            max-width: 250px; /* سائز مناسب کیا تاکہ بائیں طرف جگہ بچے */
+            margin-right: 5px; /* دائیں کونے کے بالکل قریب کرنے کے لیے */
             margin-left: auto;
             box-sizing: border-box;
         }
@@ -245,49 +245,44 @@
         }
     };
 
+    // لاگ ان کی تصدیق کا فنکشن
     function verifyBackupLogin() {
-        var enteredUser = document.getElementById('login-user').value.trim();
-        var enteredPin = document.getElementById('login-pin').value.trim();
+        var user = document.getElementById('login-user').value;
+        var pin = document.getElementById('login-pin').value;
 
-        if (enteredUser === CORRECT_USER && enteredPin === CORRECT_PIN) {
-            showDashboard();
+        if (user === CORRECT_USER && pin === CORRECT_PIN) {
+            document.getElementById('backup-login').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.body.className = "dashboard-bg"; // ڈیش بورڈ بیک گراؤنڈ لانے کے لیے
         } else {
-            alert("❌ غلط یوزر نیم یا پن کوڈ!");
+            alert("غلط یوزر نیم یا پن کوڈ درج کیا گیا ہے!");
         }
     }
 
+    // بیلنس چھپانے اور دکھانے کا فنکشن
     function toggleBalance() {
-        var balElement = document.getElementById('balance-val');
-        var currentSaved = localStorage.getItem('wallet_balance') || "0";
-        
-        if (isBalanceHidden) {
-            balElement.innerText = "Rs. " + currentSaved;
-            isBalanceHidden = false;
-        } else {
-            balElement.innerText = "******";
+        var balanceElement = document.getElementById('balance-val');
+        if (!isBalanceHidden) {
+            var currentBalance = balanceElement.innerText.replace("Rs. ", "");
+            localStorage.setItem('temp_balance', currentBalance);
+            balanceElement.innerText = "Rs. *****";
             isBalanceHidden = true;
-        }
-    }
-
-    function editBalance() {
-        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
-        if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
-            localStorage.setItem('wallet_balance', newBal);
-            document.getElementById('balance-val').innerText = "Rs. " + newBal;
+        } else {
+            var saved = localStorage.getItem('wallet_balance') || "0";
+            balanceElement.innerText = "Rs. " + saved;
             isBalanceHidden = false;
         }
     }
 
+    // رقم تبدیل کرنے کا فنکشن
+    function editBalance() {
+        var newBalance = prompt("نئی رقم درج کریں:");
+        if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
+            localStorage.setItem('wallet_balance', newBalance);
+            document.getElementById('balance-val').innerText = "Rs. " + newBalance;
+            isBalanceHidden = false;
+        }
+    }
+
+    // خفیہ نوٹس سیو کرنے کا فنکشن
     function saveNotes() {
-        localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
-    }
-
-    function showDashboard() {
-        document.getElementById('backup-login').style.display = 'none';
-        document.getElementById('dashboard').style.display = 'block';
-        document.body.className = "dashboard-bg";
-    }
-</script>
-
-</body>
-</html>
