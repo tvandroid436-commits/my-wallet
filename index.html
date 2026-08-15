@@ -3,77 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>میرا والٹ - فائنل محفوظ ڈیش بورڈ</title>
+    <title>میرا والٹ</title>
     <style>
-        :root {
-            --bg-color: #f5f7fa;
-            --card-bg: #ffffff;
-            --text-main: #2c3e50;
-            --text-sub: #7f8c8d;
-            --border-color: #e2e8f0;
-        }
-
-        .dark-theme {
-            --bg-color: #1e293b;
-            --card-bg: #0f172a;
-            --text-main: #f8fafc;
-            --text-sub: #94a3b8;
-            --border-color: #334155;
-        }
-
         body {
             font-family: Arial, sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
+            background-color: #f5f7fa;
+            color: #2c3e50;
             padding: 20px;
-            display: block; /* ڈسپلے فکس کیا تاکہ اسکرین بلینک نہ ہو */
-        }
-
-        .container {
-            width: 100%;
-            max-width: 400px;
-            margin: 60px auto 0 auto;
-            box-sizing: border-box;
-        }
-
-        .card {
-            background-color: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            padding: 25px;
             text-align: center;
-            margin-bottom: 20px;
         }
-
-        h1 {
-            font-size: 22px;
-            margin-bottom: 10px;
+        .container {
+            max-width: 400px;
+            margin: 40px auto;
+            background: #ffffff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
-        .status-msg {
-            color: var(--text-sub);
-            font-size: 14px;
-            margin-bottom: 20px;
-        }
-
         .input-field {
             width: 100%;
             padding: 12px;
-            border: 2px solid var(--border-color);
-            background: transparent;
-            color: var(--text-main);
-            border-radius: 12px;
-            box-sizing: border-box;
-            font-size: 16px;
-            text-align: center;
-            outline: none;
             margin-bottom: 15px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px;
         }
-
-        .btn-auth {
-            background: #3498db;
+        .btn {
+            background-color: #3498db;
             color: white;
             border: none;
             padding: 12px 30px;
@@ -83,223 +41,96 @@
             font-weight: bold;
             width: 100%;
         }
-
-        /* اسکرینز کا کنٹرول */
-        #setup-screen, #lock-screen, #backup-login, #dashboard {
-            display: none;
-        }
-
-        .balance-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            text-align: right;
-            position: relative;
-        }
-
-        .balance-amount {
-            font-size: 26px;
-            font-weight: bold;
-            margin-top: 5px;
-        }
-
-        .eye-btn {
-            position: absolute;
-            left: 20px;
-            top: 20px;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        .app-buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
         .app-btn {
             display: block;
             padding: 15px;
+            margin-bottom: 12px;
             border-radius: 12px;
             text-decoration: none;
             color: white;
             font-weight: bold;
-            font-size: 16px;
         }
-
         .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
         .easypaisa { background: #00a651; }
-
-        .notes-section {
-            margin-top: 20px;
-            text-align: right;
-        }
-
-        .notes-area {
-            width: 100%;
-            height: 80px;
-            background: rgba(0,0,0,0.02);
-            border: 1px solid var(--border-color);
-            color: var(--text-main);
-            border-radius: 10px;
-            padding: 10px;
-            box-sizing: border-box;
-            resize: none;
-        }
-
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 24px;
-        }
+        
+        /* شروعات میں سب کچھ نظر آئے گا، صرف ڈیش بورڈ چھپا ہوگا */
+        #dashboard, #backup-login { display: none; }
     </style>
 </head>
 <body>
 
-<div class="theme-toggle" onclick="toggleTheme()">🌙</div>
-
 <div class="container">
-    <!-- 1. سیٹ اپ اسکرین -->
-    <div id="setup-screen" class="card">
-        <h1>والٹ سیٹ اپ کریں</h1>
-        <p class="status-msg">پہلی بار لاگ ان کے لیے اپنا یوزر نیم اور پن کوڈ سیٹ کریں۔</p>
-        <input type="text" id="setup-user" class="input-field" placeholder="اپنا یوزر نیم لکھیں">
-        <input type="password" id="setup-pin" class="input-field" pattern="[0-9]*" inputmode="numeric" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
-        <button class="btn-auth" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
+
+    <!-- سیٹ اپ اسکرین -->
+    <div id="setup-screen">
+        <h2>والٹ سیٹ اپ کریں</h2>
+        <p>پہلی بار لاگ ان کے لیے یوزر نیم اور پن کوڈ بنائیں۔</p>
+        <input type="text" id="setup-user" class="input-field" placeholder="یوزر نیم لکھیں">
+        <input type="password" id="setup-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
+        <button class="btn" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
     </div>
 
-    <!-- 2. فنگر پرنٹ لاک اسکرین -->
-    <div id="lock-screen" class="card">
-        <div style="font-size: 60px; margin-bottom: 15px;">🛡️</div>
-        <h1>میرا محفوظ والٹ</h1>
-        <p class="status-msg">والٹ انلاک کرنے کے لیے نیچے بٹن دبائیں اور فنگر پرنٹ لگائیں۔</p>
-        <button class="btn-auth" onclick="authenticateUser()">والٹ انلاک کریں</button>
-    </div>
-
-    <!-- 3. پن کوڈ لاگ ان اسکرین -->
-    <div id="backup-login" class="card">
-        <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
-        <h1>والٹ لاگ ان</h1>
-        <p class="status-msg">براہ کرم اپنا درست یوزر نیم اور پن کوڈ درج کریں۔</p>
+    <!-- لاگ ان اسکرین -->
+    <div id="backup-login">
+        <h2>والٹ لاگ ان</h2>
+        <p>براہ کرم اپنا یوزر نیم اور پن کوڈ درج کریں۔</p>
         <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" id="login-pin" class="input-field" pattern="[0-9]*" inputmode="numeric" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
-        <button class="btn-auth" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+        <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
+        <button class="btn" onclick="verifyLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 4. والٹ ڈیش بورڈ -->
-    <div id="dashboard" class="card">
-        <div class="balance-card">
-            <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            <div style="font-size: 12px; opacity: 0.8;">میرا اندازاً بیلنس (PKR)</div>
-            <div id="balance-val" class="balance-amount">Rs. 50,000</div>
+    <!-- مین ڈیش بورڈ -->
+    <div id="dashboard">
+        <h2>خوش آمدید!</h2>
+        <div style="background: #764ba2; color:white; padding:15px; border-radius:10px; margin-bottom:20px;">
+            <h3>Rs. 50,000</h3>
         </div>
-
-        <div class="app-buttons">
-            <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
-            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
-        </div>
-
-        <div class="notes-section">
-            <label style="font-size: 14px; font-weight: bold;">📝 میرے خفیہ نوٹس:</label>
-            <textarea id="wallet-notes" class="notes-area" placeholder="نوٹس یہاں لکھیں، یہ خود بخود سیو رہیں گے..." oninput="saveNotes()"></textarea>
-        </div>
+        <a href="jazzcash://" class="app-btn jazzcash">JazzCash کھولیں</a>
+        <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa کھولیں</a>
     </div>
+
 </div>
 
 <script>
-    var isBalanceHidden = false;
-
+    // جیسے ہی پیج لوڈ ہو، چیک کریں کہ پہلے سے ڈیٹا موجود ہے یا نہیں
     window.onload = function() {
-        if(localStorage.getItem('theme') === 'dark') {
-            document.body.classList.add('dark-theme');
-            document.querySelector('.theme-toggle').innerText = "☀️";
-        }
+        var user = localStorage.getItem('w_user');
+        var pin = localStorage.getItem('w_pin');
 
-        var savedUser = localStorage.getItem('wallet_user');
-        var savedPin = localStorage.getItem('wallet_pin');
-
-        if (!savedUser || !savedPin) {
-            document.getElementById('setup-screen').style.display = 'block';
-        } else {
-            // سیکیورٹی فکس: اگر براؤزر فنگر پرنٹ سپورٹ کرتا ہے
-            if (window.PublicKeyCredential) {
-                document.getElementById('lock-screen').style.display = 'block';
-                authenticateUser();
-            } else {
-                // اگر سپورٹ نہیں کرتا تو سیدھا لاگ ان اسکرین
-                document.getElementById('backup-login').style.display = 'block';
-            }
-        }
-
-        if(localStorage.getItem('wallet_notes')) {
-            document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
+        if (user && pin) {
+            // اگر ڈیٹا پہلے سے سیٹ ہے، تو سیٹ اپ چھپا کر لاگ ان دکھائیں
+            document.getElementById('setup-screen').style.display = 'none';
+            document.getElementById('backup-login').style.display = 'block';
         }
     };
 
-    function toggleTheme() {
-        document.body.classList.toggle('dark-theme');
-        if(document.body.classList.contains('dark-theme')) {
-            localStorage.setItem('theme', 'dark');
-            document.querySelector('.theme-toggle').innerText = "☀️";
-        } else {
-            localStorage.setItem('theme', 'light');
-            document.querySelector('.theme-toggle').innerText = "🌙";
-        }
-    }
-
-    function toggleBalance() {
-        var balElement = document.getElementById('balance-val');
-        if(isBalanceHidden) {
-            balElement.innerText = "Rs. 50,000";
-            isBalanceHidden = false;
-        } else {
-            balElement.innerText = "******";
-            isBalanceHidden = true;
-        }
-    }
-
-    function saveNotes() {
-        localStorage.setItem('wallet_notes', document.getElementById('wallet-notes').value);
-    }
-
     function saveSetup() {
-        var user = document.getElementById('setup-user').value.trim();
-        var pin = document.getElementById('setup-pin').value.trim();
+        var u = document.getElementById('setup-user').value.trim();
+        var p = document.getElementById('setup-pin').value.trim();
 
-        if (user === "" || pin.length !== 4 || isNaN(pin)) {
-            alert("❌ براہ کرم درست یوزر نیم اور 4 ہندسوں کا پن کوڈ لکھیں!");
+        if (u === "" || p.length !== 4) {
+            alert("درست یوزر نیم اور 4 ہندسوں کا پن لکھیں!");
             return;
         }
 
-        localStorage.setItem('wallet_user', user);
-        localStorage.setItem('wallet_pin', pin);
-        alert("✅ سیکیورٹی لاک کامیابی سے سیٹ ہو گیا ہے!");
+        localStorage.setItem('w_user', u);
+        localStorage.setItem('w_pin', p);
+        alert("سیکیورٹی لاک سیٹ ہو گیا!");
         window.location.reload();
     }
 
-    function authenticateUser() {
-        if (!window.PublicKeyCredential) {
-            showBackupScreen();
-            return;
-        }
+    function verifyLogin() {
+        var u = document.getElementById('login-user').value.trim();
+        var p = document.getElementById('login-pin').value.trim();
 
-        navigator.credentials.create({
-            publicKey: {
-                challenge: new Uint8Array([1,2,3,4]),
-                rp: { name: "Wallet" },
-                user: { id: new Uint8Array([1]), name: localStorage.getItem('wallet_user') || "user", displayName: "Owner" },
-                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
-                timeout: 60000,
-                authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
-            }
-        }).then(function(credential) {
-            if (credential) { 
-                showDashboard(); 
-            } else {
-                showBackupScreen();
-            }
-        }).catch(function(err) {
+        if (u === localStorage.getItem('w_user') && p === localStorage.getItem('w_pin')) {
+            document.getElementById('backup-login').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+        } else {
+            alert("غلط معلومات!");
+        }
+    }
+</script>
+
+</body>
+</html>
