@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>میرا والٹ</title>
+    <title>میرا محفوظ والٹ</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -53,33 +53,42 @@
         .jazzcash { background: #000000; color: #ffcc00; border: 1px solid #ffcc00; }
         .easypaisa { background: #00a651; }
         
-        /* شروعات میں سب کچھ نظر آئے گا، صرف ڈیش بورڈ چھپا ہوگا */
-        #dashboard, #backup-login { display: none; }
+        /* شروعات میں سب اسکرینز چھپی ہوں گی، جاوا اسکرپٹ فیصلہ کرے گی کون سی دکھانی ہے */
+        #setup-screen, #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
 <body>
 
 <div class="container">
 
-    <!-- سیٹ اپ اسکرین -->
+    <!-- 1. پہلی بار سیٹ اپ اسکرین -->
     <div id="setup-screen">
         <h2>والٹ سیٹ اپ کریں</h2>
-        <p>پہلی بار لاگ ان کے لیے یوزر نیم اور پن کوڈ بنائیں۔</p>
+        <p>پہلی بار لاگ ان کے لیے اپنا یوزر نیم اور پن کوڈ بنائیں۔</p>
         <input type="text" id="setup-user" class="input-field" placeholder="یوزر نیم لکھیں">
         <input type="password" id="setup-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
         <button class="btn" onclick="saveSetup()">سیکیورٹی لاک سیٹ کریں</button>
     </div>
 
-    <!-- لاگ ان اسکرین -->
-    <div id="backup-login">
-        <h2>والٹ لاگ ان</h2>
-        <p>براہ کرم اپنا یوزر نیم اور پن کوڈ درج کریں۔</p>
-        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
-        <button class="btn" onclick="verifyLogin()">لاگ ان کریں</button>
+    <!-- 2. فنگر پرنٹ لاک اسکرین (کروم کے لیے) -->
+    <div id="lock-screen">
+        <div style="font-size: 60px; margin-bottom: 15px;">🛡️</div>
+        <h2>میرا محفوظ والٹ</h2>
+        <p>والٹ کھولنے کے لیے نیچے بٹن دبا کر اپنا فنگر پرنٹ لگائیں۔</p>
+        <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
     </div>
 
-    <!-- مین ڈیش بورڈ -->
+    <!-- 3. پن کوڈ لاگ ان اسکرین (بیک اپ اور دوسرے موبائلز کے لیے) -->
+    <div id="backup-login">
+        <div style="font-size: 50px; margin-bottom: 15px;">🔒</div>
+        <h2>والٹ لاگ ان</h2>
+        <p>براہ کرم اپنا صحیح یوزر نیم اور پن کوڈ درج کریں۔</p>
+        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
+        <input type="password" id="login-pin" class="input-field" placeholder="4 ہندسوں کا پن کوڈ" maxlength="4">
+        <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+    </div>
+
+    <!-- 4. مین ڈیش بورڈ -->
     <div id="dashboard">
         <h2>خوش آمدید!</h2>
         <div style="background: #764ba2; color:white; padding:15px; border-radius:10px; margin-bottom:20px;">
@@ -92,43 +101,94 @@
 </div>
 
 <script>
-    // جیسے ہی پیج لوڈ ہو، چیک کریں کہ پہلے سے ڈیٹا موجود ہے یا نہیں
     window.onload = function() {
-        var user = localStorage.getItem('w_user');
-        var pin = localStorage.getItem('w_pin');
+        var savedUser = localStorage.getItem('secure_user');
+        var savedPin = localStorage.getItem('secure_pin');
 
-        if (user && pin) {
-            // اگر ڈیٹا پہلے سے سیٹ ہے، تو سیٹ اپ چھپا کر لاگ ان دکھائیں
-            document.getElementById('setup-screen').style.display = 'none';
-            document.getElementById('backup-login').style.display = 'block';
+        // اگر ابھی تک یوزر نیم اور پن سیٹ نہیں ہوا
+        if (!savedUser || !savedPin) {
+            document.getElementById('setup-screen').style.display = 'block';
+        } else {
+            // اگر براؤزر فنگر پرنٹ کو سپورٹ کرتا ہے (جیسے کروم)
+            if (window.PublicKeyCredential) {
+                document.getElementById('lock-screen').style.display = 'block';
+                authenticateUser(); // آٹو فنگر پرنٹ کھولیں
+            } else {
+                // اگر یو سی براؤزر یا کوئی ایسا موبائل ہے جو سپورٹ نہیں کرتا
+                document.getElementById('backup-login').style.display = 'block';
+            }
         }
     };
 
+    // پہلی بار سیٹ اپ سیو کرنے کا فنکشن
     function saveSetup() {
         var u = document.getElementById('setup-user').value.trim();
         var p = document.getElementById('setup-pin').value.trim();
 
-        if (u === "" || p.length !== 4) {
-            alert("درست یوزر نیم اور 4 ہندسوں کا پن لکھیں!");
+        if (u === "" || p.length !== 4 || isNaN(p)) {
+            alert("❌ براہ کرم درست یوزر نیم اور 4 ہندسوں کا پن کوڈ لکھیں!");
             return;
         }
 
-        localStorage.setItem('w_user', u);
-        localStorage.setItem('w_pin', p);
-        alert("سیکیورٹی لاک سیٹ ہو گیا!");
+        localStorage.setItem('secure_user', u);
+        localStorage.setItem('secure_pin', p);
+        alert("✅ سیکیورٹی لاک کامیابی سے سیٹ ہو گیا ہے!");
         window.location.reload();
     }
 
-    function verifyLogin() {
-        var u = document.getElementById('login-user').value.trim();
-        var p = document.getElementById('login-pin').value.trim();
-
-        if (u === localStorage.getItem('w_user') && p === localStorage.getItem('w_pin')) {
-            document.getElementById('backup-login').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-        } else {
-            alert("غلط معلومات!");
+    // فنگر پرنٹ بائیومیٹرک کا فنکشن
+    function authenticateUser() {
+        if (!window.PublicKeyCredential) {
+            showBackupScreen();
+            return;
         }
+
+        navigator.credentials.create({
+            publicKey: {
+                challenge: new Uint8Array(),
+                rp: { name: "Wallet" },
+                user: { id: new Uint8Array(), name: localStorage.getItem('secure_user') || "user", displayName: "Owner" },
+                pubKeyCredParams: [{ type: "public-key", alg: -7 }],
+                timeout: 60000,
+                authenticatorSelection: { authenticatorAttachment: "platform", userVerification: "required" }
+            }
+        }).then(function(credential) {
+            if (credential) { 
+                showDashboard(); 
+            } else {
+                showBackupScreen();
+            }
+        }).catch(function(err) {
+            // سیکیورٹی فکس: اگر فنگر پرنٹ فیل ہو، کینسل ہو، یا دوسرا موبائل ہو تو سیدھا پاس ورڈ مانگے گا
+            showBackupScreen();
+        });
+    }
+
+    function showBackupScreen() {
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('backup-login').style.display = 'block';
+    }
+
+    // یوزر نیم اور پن کوڈ چیک کرنے کا فنکشن
+    function verifyBackupLogin() {
+        var enteredUser = document.getElementById('login-user').value.trim();
+        var enteredPin = document.getElementById('login-pin').value.trim();
+        
+        var savedUser = localStorage.getItem('secure_user');
+        var savedPin = localStorage.getItem('secure_pin');
+
+        if (enteredUser === savedUser && enteredPin === savedPin) {
+            showDashboard();
+        } else {
+            alert("❌ غلط یوزر نیم یا پن کوڈ! دوبارہ کوشش کریں۔");
+        }
+    }
+
+    function showDashboard() {
+        document.getElementById('setup-screen').style.display = 'none';
+        document.getElementById('lock-screen').style.display = 'none';
+        document.getElementById('backup-login').style.display = 'none';
+        document.getElementById('dashboard').style.display = 'block';
     }
 </script>
 
