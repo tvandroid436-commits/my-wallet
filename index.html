@@ -16,17 +16,17 @@
             background-position: center center !important;
             background-repeat: no-repeat !important;
             background-attachment: fixed !important;
-            background-color: #f5f7fa; /* اگر امیج لوڈ نہ ہو تو یہ رنگ دکھے گا */
+            background-color: #f5f7fa;
         }
         
-        /* 🖼️ پہلے پیج کا درست تصویر لنک */
+        /* 🖼️ پہلے پیج کا گٹ ہب لوکل لنک */
         body.login-bg {
-            background: url('https://ibb.co');
+            background: url('pic1.jpg');
         }
 
-        /* 🖼️ دوسرے پیج کا درست تصویر لنک */
+        /* 🖼️ دوسرے پیج کا گٹ ہب لوکل لنک */
         body.dashboard-bg {
-            background: url('https://ibb.co');
+            background: url('pic2.jpg');
         }
 
         .container {
@@ -137,7 +137,7 @@
         #lock-screen, #backup-login, #dashboard { display: none; }
     </style>
 </head>
-<body class="login-bg"> <!-- یہاں پہلا امیج لوڈ ہوگا -->
+<body class="login-bg">
 
 <div class="container">
 
@@ -149,7 +149,7 @@
         <button class="btn" onclick="authenticateUser()">فنگر پرنٹ سے انلاک کریں</button>
     </div>
 
-    <!-- 2. لاگ ان اسکرین (یوزر نیم اور پاس ورڈ) -->
+    <!-- 2. لاگ ان اسکرین -->
     <div id="backup-login">
         <div style="font-size: 60px; margin-bottom: 15px;">🔒</div>
         <h2>والٹ لاگ ان</h2>
@@ -186,16 +186,13 @@
     var isBalanceHidden = false;
 
     window.onload = function() {
-        // لاگ ان اسکرین دکھائیں
         document.getElementById('backup-login').style.display = 'block';
 
-        // محفوظ بیلنس لوڈ کریں
         var savedBalance = localStorage.getItem('wallet_balance');
         if (savedBalance) {
             document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
         }
 
-        // محفوظ نوٹس لوڈ کریں
         if (localStorage.getItem('wallet_notes')) {
             document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
         }
@@ -250,7 +247,7 @@
     }
 
     function editBalance() {
-        var newBal = prompt("نیا بیلنس درج کریں (صھرف ہندسے):");
+        var newBal = prompt("نیا بیلنس درج کریں (صرف ہندسے):");
         if (newBal !== null && newBal.trim() !== "" && !isNaN(newBal)) {
             localStorage.setItem('wallet_balance', newBal);
             document.getElementById('balance-val').innerText = "Rs. " + newBal;
@@ -267,7 +264,6 @@
         document.getElementById('backup-login').style.display = 'none';
         document.getElementById('dashboard').style.display = 'block';
         
-        // باڈی کلاس تبدیل کر کے دوسری تصویر لگائیں
         document.body.className = "dashboard-bg";
     }
 </script>
