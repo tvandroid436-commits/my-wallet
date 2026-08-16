@@ -1,286 +1,285 @@
-‎<!DOCTYPE html>
-‎<html lang="ur" dir="rtl">
-‎<head>
-‎    <meta charset="UTF-8">
-‎    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-‎    <title>Sahibzada Umer Siraj Wallet v14</title>
-‎    <style>
-‎        body {
-‎            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-‎            color: #ffffff;
-‎            padding: 10px;
-‎            margin: 0;
-‎            min-height: 100vh;
-‎            background-size: cover !important;
-‎            background-position: center center !important;
-‎            background-repeat: no-repeat !important;
-‎            background-attachment: fixed !important;
-‎            background-color: #0f172a;
-‎            box-sizing: border-box;
-‎            overflow-x: hidden;
-‎        }
-‎        
-‎        /* 🖼️ بیک گراؤنڈ تصاویر */
-‎        body.login-bg { background: url('pic1.jpg'); }
-‎        body.dashboard-bg { background: url('pic2.jpg'); }
-‎
-‎        /* 🌈 نام کا اسٹائل جو دائیں (Right) طرف پریمیم گلو کے ساتھ ہے */
-‎        .vip-header {
-‎            font-family: 'Impact', 'Arial Black', sans-serif;
-‎            font-size: 24px; 
-‎            font-weight: bold;
-‎            margin: 25px 20px 10px 0;
-‎            text-align: right;
-‎            width: auto;
-‎            white-space: nowrap;
-‎            background: linear-gradient(45deg, #ffd700, #ff007f, #00f2fe, #4facfe);
-‎            background-size: 300% 300%;
-‎            -webkit-background-clip: text;
-‎            -webkit-text-fill-color: transparent;
-‎            animation: colorAnimation 6s ease infinite;
-‎            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
-‎        }
-‎
-‎        @keyframes colorAnimation {
-‎            0% { background-position: 0% 50%; }
-‎            50% { background-position: 100% 50%; }
-‎            100% { background-position: 0% 50%; }
-‎        }
-‎
-‎        /* 🔒 والٹ کنٹینر پوزیشن */
-‎        .container {
-‎            width: 90%;
-‎            max-width: 270px; 
-‎            margin-right: auto; 
-‎            margin-left: auto;
-‎            margin-top: 290px; 
-‎            box-sizing: border-box;
-‎        }
-‎
-‎        /* 🪄 شیشہ نما کارڈز - یہاں سے بلیک بیک گراؤنڈ اور بارڈر ختم کر دیا ہے */
-‎        .glass-button-card {
-‎            background: transparent; /* بلیک باکس ختم کرنے کے لیے ٹرانسپیرنٹ کیا */
-‎            border: none; /* بارڈر لائن ختم کر دی */
-‎            padding: 10px;
-‎            box-shadow: none; /* بیرونی سایہ ختم کر دیا */
-‎            margin-bottom: 12px;
-‎            text-align: center;
-‎            box-sizing: border-box;
-‎        }
-‎
-‎        /* انپٹ باکسز کا اسٹائل برقرار رکھا تاکہ ٹیکسٹ لکھنے کی جگہ نظر آتی رہے */
-‎        .input-field {
-‎            width: 100%;
-‎            padding: 14px; 
-‎            margin-bottom: 12px;
-‎            border: 1px solid rgba(255, 255, 255, 0.25);
-‎            border-radius: 12px;
-‎            box-sizing: border-box;
-‎            text-align: center;
-‎            font-size: 14px;
-‎            background: rgba(0, 0, 0, 0.85); /* باکسز کے اندر کا بلیک کلر برقرار ہے تاکہ لکھائی صاف نظر آئے */
-‎            color: #ffffff;
-‎            outline: none;
-‎        }
-‎
-‎        .btn {
-‎            background: linear-gradient(135deg, #3498db, #2980b9);
-‎            color: white;
-‎            border: none;
-‎            padding: 14px 20px;
-‎            font-size: 16px;
-‎            border-radius: 12px;
-‎            cursor: pointer;
-‎            font-weight: bold;
-‎            width: 100%;
-‎            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
-‎        }
-‎
-‎        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
-‎        .apps-row {
-‎            display: flex;
-‎            gap: 10px;
-‎            margin-bottom: 12px;
-‎            width: 100%;
-‎            box-sizing: border-box;
-‎        }
-‎
-‎        .app-btn {
-‎            flex: 1;
-‎            padding: 12px 5px;
-‎            border-radius: 12px;
-‎            text-decoration: none;
-‎            color: white;
-‎            font-weight: bold;
-‎            font-size: 13px;
-‎            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-‎            text-align: center;
-‎            box-sizing: border-box;
-‎            white-space: nowrap;
-‎        }
-‎
-‎        .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
-‎        .easypaisa { background: linear-gradient(135deg, #00a651, #00713d); }
-‎        
-‎        .balance-text-group {
-‎            display: flex;
-‎            justify-content: space-between;
-‎            align-items: center;
-‎            padding: 0 5px;
-‎        }
-‎
-‎        .balance-amount {
-‎            font-size: 22px;
-‎            font-weight: bold;
-‎            color: #ffd700;
-‎            margin-top: 5px;
-‎        }
-‎
-‎        .eye-btn {
-‎            cursor: pointer;
-‎            font-size: 18px;
-‎            background: rgba(255,255,255,0.2);
-‎            padding: 2px 8px;
-‎            border-radius: 6px;
-‎            user-select: none;
-‎        }
-‎
-‎        .edit-btn {
-‎            background: rgba(255,255,255,0.15);
-‎            border: 1px solid rgba(255,255,255,0.2);
-‎            color: white;
-‎            padding: 5px 10px;
-‎            font-size: 11px;
-‎            border-radius: 6px;
-‎            cursor: pointer;
-‎            width: 100%;
-‎            margin-top: 8px;
-‎            font-weight: bold;
-‎        }
-‎
-‎        .notes-title {
-‎            text-align: right;
-‎            font-size: 13px;
-‎            font-weight: bold;
-‎            margin-bottom: 4px;
-‎            color: #ffd700;
-‎        }
-‎
-‎        .notes-area {
-‎            width: 100%;
-‎            height: 80px;
-‎            background: rgba(0, 0, 0, 0.5);
-‎            border: 1px solid rgba(255, 255, 255, 0.25);
-‎            color: #ffffff;
-‎            border-radius: 10px;
-‎            padding: 10px;
-‎            box-sizing: border-box;
-‎            resize: none;
-‎            font-size: 13px;
-‎            outline: none;
-‎        }
-‎    </style>
-‎</head>
-‎<body class="login-bg">
-‎
-‎<div class="vip-header">Sahibzada Umer Siraj</div>
-‎
-‎<div class="container">
-‎    <!-- 1. لاگ ان اسکرین -->
-‎    <div id="backup-login" class="glass-button-card" style="display: block;">
-‎        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
-‎        <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
-‎        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-‎        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
-‎        <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
-‎    </div>
-‎
-‎    <!-- 2. مین ڈیش بورڈ -->
-‎    <div id="dashboard" style="display: none;">
-‎        <!-- بیلنس کارڈ -->
-‎        <div class="glass-button-card">
-‎            <div class="balance-text-group">
-‎                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
-‎                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-‎            </div>
-‎            <div id="balance-val" class="balance-amount">Rs. 0</div>
-‎            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
-‎        </div>
-‎
-‎        <!-- بٹنز رو -->
-‎        <div class="apps-row">
-‎            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
-‎            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
-‎        </div>
-‎
-‎        <!-- خفیہ نوٹس کارڈ -->
-‎        <div class="glass-button-card">
-‎            <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
-‎            <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
-‎        </div>
-‎    </div>
-‎</div>
-‎
-‎<script>
-‎    var CORRECT_USER = "UmerSiraj";
-‎    var CORRECT_PIN = "1122";
-‎    var isBalanceHidden = false;
-‎
-‎    window.onload = function() {
-‎        document.getElementById('backup-login').style.display = 'block';
-‎        document.getElementById('dashboard').style.display = 'none';
-‎
-‎        var savedBalance = localStorage.getItem('wallet_balance');
-‎        if (savedBalance) {
-‎            document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
-‎        }
-‎
-‎        if (localStorage.getItem('wallet_notes')) {
-‎            document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
-‎        }
-‎    };
-‎
-‎    function verifyBackupLogin() {
-‎        var user = document.getElementById('login-user').value;
-‎        var pin = document.getElementById('login-pin').value;
-‎
-‎        if (user === CORRECT_USER && pin === CORRECT_PIN) {
-‎            document.getElementById('backup-login').style.display = 'none';
-‎            document.getElementById('dashboard').style.display = 'block';
-‎            document.body.className = "dashboard-bg";
-‎        } else {
-‎            alert("غلط یوزر نیم یا پن کوڈ درج کیا گیا ہے!");
-‎        }
-‎    }
-‎
-‎    function toggleBalance() {
-‎        var balanceElement = document.getElementById('balance-val');
-‎        if (!isBalanceHidden) {
-‎            var currentBalance = balanceElement.innerText.replace("Rs. ", "");
-‎            localStorage.setItem('temp_balance', currentBalance);
-‎            balanceElement.innerText = "Rs. *****";
-‎            isBalanceHidden = true;
-‎        } else {
-‎            var saved = localStorage.getItem('wallet_balance') || "0";
-‎            balanceElement.innerText = "Rs. " + saved;
-‎            isBalanceHidden = false;
-‎        }
-‎    }
-‎
-‎    function editBalance() {
-‎        var newBalance = prompt("نئی رقم درج کریں:");
-‎        if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
-‎            localStorage.setItem('wallet_balance', newBalance);
-‎            document.getElementById('balance-val').innerText = "Rs. " + newBalance;
-‎            isBalanceHidden = false;
-‎        }
-‎    }
-‎
-‎    function saveNotes() {
-‎        var notes = document.getElementById('wallet-notes').value;
-‎        localStorage.setItem('wallet_notes', notes);
-‎    }
-‎</script>
-‎</body>
-‎</html>
-‎
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sahibzada Umer Siraj Wallet v14</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #ffffff;
+            padding: 10px;
+            margin: 0;
+            min-height: 100vh;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+            background-attachment: fixed !important;
+            background-color: #0f172a;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+        
+        /* 🖼️ بیک گراؤنڈ تصاویر */
+        body.login-bg { background: url('pic1.jpg'); }
+        body.dashboard-bg { background: url('pic2.jpg'); }
+
+        /* 🌈 نام کا اسٹائل جو دائیں (Right) طرف پریمیم گلو کے ساتھ ہے */
+        .vip-header {
+            font-family: 'Impact', 'Arial Black', sans-serif;
+            font-size: 24px; 
+            font-weight: bold;
+            margin: 25px 20px 10px 0;
+            text-align: right;
+            width: auto;
+            white-space: nowrap;
+            background: linear-gradient(45deg, #ffd700, #ff007f, #00f2fe, #4facfe);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: colorAnimation 6s ease infinite;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
+        }
+
+        @keyframes colorAnimation {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* 🔒 والٹ کنٹینر پوزیشن */
+        .container {
+            width: 90%;
+            max-width: 270px; 
+            margin-right: auto; 
+            margin-left: auto;
+            margin-top: 290px; 
+            box-sizing: border-box;
+        }
+
+        /* 🪄 شیشہ نما کارڈز - یہاں سے بلیک بیک گراؤنڈ اور بارڈر ختم کر دیا ہے */
+        .glass-button-card {
+            background: transparent; /* بلیک باکس ختم کرنے کے لیے ٹرانسپیرنٹ کیا */
+            border: none; /* بارڈر لائن ختم کر دی */
+            padding: 10px;
+            box-shadow: none; /* بیرونی سایہ ختم کر دیا */
+            margin-bottom: 12px;
+            text-align: center;
+            box-sizing: border-box;
+        }
+
+        /* انپٹ باکسز کا اسٹائل برقرار رکھا تاکہ ٹیکسٹ لکھنے کی جگہ نظر آتی رہے */
+        .input-field {
+            width: 100%;
+            padding: 14px; 
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.85); /* باکسز کے اندر کا بلیک کلر برقرار ہے تاکہ لکھائی صاف نظر آئے */
+            color: #ffffff;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
+        .apps-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .app-btn {
+            flex: 1;
+            padding: 12px 5px;
+            border-radius: 12px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            font-size: 13px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            text-align: center;
+            box-sizing: border-box;
+            white-space: nowrap;
+        }
+
+        .jazzcash { background: linear-gradient(135deg, #111111, #ffcc00); color: #ffffff; border: 1px solid #ffcc00; }
+        .easypaisa { background: linear-gradient(135deg, #00a651, #00713d); }
+        
+        .balance-text-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 5px;
+        }
+
+        .balance-amount {
+            font-size: 22px;
+            font-weight: bold;
+            color: #ffd700;
+            margin-top: 5px;
+        }
+
+        .eye-btn {
+            cursor: pointer;
+            font-size: 18px;
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 6px;
+            user-select: none;
+        }
+
+        .edit-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .notes-title {
+            text-align: right;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #ffd700;
+        }
+
+        .notes-area {
+            width: 100%;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            border-radius: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            resize: none;
+            font-size: 13px;
+            outline: none;
+        }
+    </style>
+</head>
+<body class="login-bg">
+
+<div class="vip-header">Sahibzada Umer Siraj</div>
+
+<div class="container">
+    <!-- 1. لاگ ان اسکرین -->
+    <div id="backup-login" class="glass-button-card" style="display: block;">
+        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
+        <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
+        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
+        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
+        <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+    </div>
+
+    <!-- 2. مین ڈیش بورڈ -->
+    <div id="dashboard" style="display: none;">
+        <!-- بیلنس کارڈ -->
+        <div class="glass-button-card">
+            <div class="balance-text-group">
+                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
+                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
+            </div>
+            <div id="balance-val" class="balance-amount">Rs. 0</div>
+            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
+        </div>
+
+        <!-- بٹنز رو -->
+        <div class="apps-row">
+            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
+            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
+        </div>
+
+        <!-- خفیہ نوٹس کارڈ -->
+        <div class="glass-button-card">
+            <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
+            <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
+        </div>
+    </div>
+</div>
+
+<script>
+    var CORRECT_USER = "UmerSiraj";
+    var CORRECT_PIN = "1122";
+    var isBalanceHidden = false;
+
+    window.onload = function() {
+        document.getElementById('backup-login').style.display = 'block';
+        document.getElementById('dashboard').style.display = 'none';
+
+        var savedBalance = localStorage.getItem('wallet_balance');
+        if (savedBalance) {
+            document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
+        }
+
+        if (localStorage.getItem('wallet_notes')) {
+            document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
+        }
+    };
+
+    function verifyBackupLogin() {
+        var user = document.getElementById('login-user').value;
+        var pin = document.getElementById('login-pin').value;
+
+        if (user === CORRECT_USER && pin === CORRECT_PIN) {
+            document.getElementById('backup-login').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            document.body.className = "dashboard-bg";
+        } else {
+            alert("غلط یوزر نیم یا پن کوڈ درج کیا گیا ہے!");
+        }
+    }
+
+    function toggleBalance() {
+        var balanceElement = document.getElementById('balance-val');
+        if (!isBalanceHidden) {
+            var currentBalance = balanceElement.innerText.replace("Rs. ", "");
+            localStorage.setItem('temp_balance', currentBalance);
+            balanceElement.innerText = "Rs. *****";
+            isBalanceHidden = true;
+        } else {
+            var saved = localStorage.getItem('wallet_balance') || "0";
+            balanceElement.innerText = "Rs. " + saved;
+            isBalanceHidden = false;
+        }
+    }
+
+    function editBalance() {
+        var newBalance = prompt("نئی رقم درج کریں:");
+        if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
+            localStorage.setItem('wallet_balance', newBalance);
+            document.getElementById('balance-val').innerText = "Rs. " + newBalance;
+            isBalanceHidden = false;
+        }
+    }
+
+    function saveNotes() {
+        var notes = document.getElementById('wallet-notes').value;
+        localStorage.setItem('wallet_notes', notes);
+    }
+</script>
+</body>
+</html>
