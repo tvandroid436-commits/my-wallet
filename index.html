@@ -4,8 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahibzada Umer Siraj Wallet v14</title>
-    <!-- EmailJS لائبریری -->
-    <script type="text/javascript" src="https://jsdelivr.net"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -315,5 +313,8 @@
     <!-- 2. او ٹی پی ویریفیکیشن اسکرین -->
     <div id="otp-screen" class="glass-button-card" style="display: none;">
         <div style="font-size: 26px; margin-bottom: 6px;">📧</div>
-        <p style="color: #ffd700; font-size: 13px; font-weight: bold; margin-bottom: 5px;">OTP کوڈ بھیج دیا گیا ہے!</p>
-        <p style="color: #e2e8f0; font-size: 11px; margin-bottom: 12px;">اپنی جی میل چیک کریں اور کوڈ درج کریں:</p>
+        <p style="color: #ffd700; font-size: 13px; font-weight: bold; margin-bottom: 5px;">OTP کوڈ جنریٹ ہو گیا ہے!</p>
+        <p style="color: #e2e8f0; font-size: 11px; margin-bottom: 12px;">کوڈ درج کریں اور والٹ انلاک کریں:</p>
+        <input type="text" id="otp-input" class="input-field" placeholder="4 ہندسوں کا OTP درج کریں" maxlength="4">
+        <button class="btn" onclick="verifyOTP()">کوڈ تصدیق کریں</button>
+    </div>
