@@ -30,6 +30,8 @@
             overflow: hidden;
             margin-top: 20px;
             margin-bottom: 10px;
+            position: relative;
+            z-index: 10005; /* نام ہمیشہ سب سے اوپر رہے گا */
         }
 
         .vip-header {
@@ -66,6 +68,7 @@
             margin-left: auto;
             margin-top: 260px; 
             box-sizing: border-box;
+            position: relative;
         }
 
         /* شیشہ نما کارڈز */
@@ -90,6 +93,8 @@
             font-weight: bold;
             width: 100%;
             box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            display: block;
+            text-align: center;
         }
 
         /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
@@ -181,7 +186,7 @@
             position: fixed;
             bottom: 20px;
             left: 20px;
-            z-index: 10000;
+            z-index: 10010;
         }
 
         .ai-icon-btn {
@@ -217,7 +222,7 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
             flex-direction: column;
             overflow: hidden;
-            z-index: 10000;
+            z-index: 10015;
         }
 
         .ai-header {
@@ -278,19 +283,42 @@
             font-size: 12px;
         }
 
-        /* 🪄 سی ایس ایس پوزیشن ٹوگل ٹرک */
-        #dashboard, #ai-widget { display: none; }
+        /* 🪄 الٹرا ایڈوانسڈ سی ایس ایس ٹوگل فکس */
+        #backup-login {
+            position: relative;
+            z-index: 10000;
+            pointer-events: auto;
+        }
+
+        #dashboard {
+            display: none;
+            position: relative;
+            z-index: 1;
+            pointer-events: none; /* لاک ہونے کی حالت میں بٹنز کام نہیں کریں گے */
+        }
+
+        #ai-widget {
+            display: none;
+        }
         
-        /* جب ہائڈ لاک پر کلک ہو تو جادو شروع ہو جائے */
-        #lock-trigger:checked ~ .container #backup-login { display: none !important; }
-        #lock-trigger:checked ~ .container #dashboard { display: block !important; }
-        #lock-trigger:checked ~ #ai-widget { display: block !important; }
-        #lock-trigger:checked ~ body { background: url('pic2.jpg') !important; }
+        /* 🔓 جب خفیہ ٹریگر آن ہو تو پرانے لیئرز کو مٹا کر ڈیش بورڈ کو سب سے اوپر لائیں */
+        #lock-trigger:checked ~ .container #backup-login { 
+            display: none !important; 
+            pointer-events: none !important;
+        }
+        #lock-trigger:checked ~ .container #dashboard { 
+            display: block !important; 
+            z-index: 10000 !important;
+            pointer-events: auto !important; /* بٹنز پر کلک ہونا اب شروع ہو جائے گا */
+        }
+        #lock-trigger:checked ~ #ai-widget { 
+            display: block !important; 
+        }
     </style>
 </head>
 <body class="login-bg">
 
-<!-- 🔐 خفیہ سی ایس ایس ہیک چیک باکس (یہ اسکرین پر نظر نہیں آئے گا) -->
+<!-- 🔐 خفیہ سی ایس ایس ماسٹر ٹریگر -->
 <input type="checkbox" id="lock-trigger" style="display: none;">
 
 <div class="header-container">
@@ -298,21 +326,9 @@
 </div>
 
 <div class="container">
-    <!-- 1. لاگ ان اسکرین (اب یہ خالص سی ایس ایس لیبل بٹن پر کام کرتا ہے) -->
-    <div id="backup-login" class="glass-button-card" style="display: block;">
+    <!-- 1. لاگ ان اسکرین -->
+    <div id="backup-login" class="glass-button-card">
         <div style="font-size: 32px; margin-bottom: 10px;">🔒</div>
         <p style="color: #ffd700; font-size: 14px; font-weight: bold; margin-bottom: 15px;">والٹ لاک ہے!</p>
         
-        <!-- یہ جادوئی بٹن ہے جو کلک ہوتے ہی والٹ کھول دے گا -->
-        <label for="lock-trigger" class="btn" style="display: block; text-decoration: none; padding: 14px; background: linear-gradient(135deg, #00f2fe, #4facfe); color: black;">
-            والٹ انلاک کریں 🔓
-        </label>
-    </div>
-
-    <!-- 2. مین ڈیش بورڈ -->
-    <div id="dashboard">
-        <div class="glass-button-card">
-            <div class="balance-text-group">
-                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
-                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            </div>
+        <!-- انلاک کرنے کا اصلی فکسڈ بٹن -->
