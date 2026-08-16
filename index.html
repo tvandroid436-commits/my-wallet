@@ -68,12 +68,11 @@
             box-sizing: border-box;
         }
 
-        /* شیشہ نما کارڈز (ٹرانسپیرنٹ فکسڈ) */
+        /* شیشہ نما کارڈز */
         .glass-button-card {
             background: transparent; 
             border: none; 
             padding: 10px;
-            box-shadow: none; 
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
@@ -295,7 +294,6 @@
 </head>
 <body class="login-bg">
 
-<!-- متحرک نام کا کنٹینر -->
 <div class="header-container">
     <div class="vip-header">Sahibzada Umer Siraj</div>
 </div>
@@ -310,11 +308,17 @@
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 2. او ٹی پی ویریفیکیشن اسکرین -->
-    <div id="otp-screen" class="glass-button-card" style="display: none;">
-        <div style="font-size: 26px; margin-bottom: 6px;">📧</div>
-        <p style="color: #ffd700; font-size: 13px; font-weight: bold; margin-bottom: 5px;">OTP کوڈ جنریٹ ہو گیا ہے!</p>
-        <p style="color: #e2e8f0; font-size: 11px; margin-bottom: 12px;">کوڈ درج کریں اور والٹ انلاک کریں:</p>
-        <input type="text" id="otp-input" class="input-field" placeholder="4 ہندسوں کا OTP درج کریں" maxlength="4">
-        <button class="btn" onclick="verifyOTP()">کوڈ تصدیق کریں</button>
-    </div>
+    <!-- 2. مین ڈیش بورڈ -->
+    <div id="dashboard" style="display: none;">
+        <div class="glass-button-card">
+            <div class="balance-text-group">
+                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
+                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
+            </div>
+            <div id="balance-val" class="balance-amount">Rs. 0</div>
+            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
+        </div>
+
+        <div class="apps-row">
+            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
+            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
