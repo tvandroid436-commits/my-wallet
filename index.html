@@ -5,26 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahibzada Umer Siraj Wallet v14</title>
     <style>
-        body {
+        /* سیکیورٹی کے لیے شروع میں پورا پیج چھپا رہے گا */
+        html, body { display: none; }
+        
+        body.unlocked {
+            display: block !important;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: #ffffff;
             padding: 10px;
             margin: 0;
             min-height: 100vh;
-            background: url('pic1.jpg') no-repeat center center fixed !important; /* شروع میں لاگ ان بیک گراؤنڈ */
+            background: url('pic2.jpg') no-repeat center center fixed !important;
             background-size: cover !important;
+            background-color: #0f172a;
             box-sizing: border-box;
             overflow-x: hidden;
         }
-
-        /* 🌈 نام دائیں سے بائیں متحرک ہونے والی اینیمیشن */
+        
         .header-container {
             width: 100%;
             overflow: hidden;
             margin-top: 20px;
             margin-bottom: 10px;
-            position: relative;
-            z-index: 10020;
         }
 
         .vip-header {
@@ -53,7 +55,6 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* 🔒 والٹ کنٹینر پوزیشن */
         .container {
             width: 90%;
             max-width: 270px; 
@@ -61,10 +62,8 @@
             margin-left: auto;
             margin-top: 260px; 
             box-sizing: border-box;
-            position: relative;
         }
 
-        /* شیشہ نما کارڈز */
         .glass-button-card {
             background: transparent; 
             border: none; 
@@ -73,36 +72,6 @@
             text-align: center;
             box-sizing: border-box;
             width: 100%;
-        }
-
-        .input-field {
-            width: 100%;
-            padding: 14px; 
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 14px;
-            background: rgba(0, 0, 0, 0.85); 
-            color: #ffffff;
-            outline: none;
-        }
-
-        .btn-link {
-            background: linear-gradient(135deg, #00f2fe, #4facfe);
-            color: black !important;
-            padding: 14px 20px;
-            font-size: 16px;
-            border-radius: 12px;
-            cursor: pointer;
-            font-weight: bold;
-            width: 100%;
-            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.5);
-            display: block;
-            text-align: center;
-            text-decoration: none !important;
-            box-sizing: border-box;
         }
 
         .edit-btn {
@@ -118,7 +87,6 @@
             font-weight: bold;
         }
 
-        /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
         .apps-row {
             display: flex;
             gap: 10px;
@@ -189,9 +157,7 @@
             outline: none;
         }
 
-        /* 🤖 AI چیٹ بوٹ کا اسٹائل */
         .ai-widget {
-            display: none;
             position: fixed;
             bottom: 20px;
             left: 20px;
@@ -291,35 +257,67 @@
             font-weight: bold;
             font-size: 12px;
         }
-
-        /* 🪄 ۱۰۰٪ خالص سی ایس ایس لاگ ان جادو بلڈرز */
-        #backup-login { display: block; }
-        #dashboard { display: none; }
-
-        /* 🔓 جیسے ہی یو آر ایل میں #unlock کا نشان آئے گا، سی ایس ایس ایکشن متحرک ہو جائے گا */
-        body:target {
-            background: url('pic2.jpg') no-repeat center center fixed !important;
-            background-size: cover !important;
-        }
-        body:target #backup-login { display: none !important; }
-        body:target #dashboard { display: block !important; }
-        body:target #ai-widget { display: block !important; }
     </style>
 </head>
+<body>
 
-<!-- سی ایس ایس ٹارگیٹ کو ٹریگر کرنے کے لیے باڈی پر آئی ڈی دی گئی ہے -->
-<body id="unlock" class="login-bg">
+<!-- 🚀 براؤزر سیکیورٹی لاک ایکشن اسکرپٹ (یہ لوڈ ہوتے ہی الرٹ پاپ اپ کھولے گا) -->
+<script>
+    // پیج لوڈ ہونے سے پہلے ہی پاس ورڈ مانگے گا
+    var enterPin = prompt("🔒 سیکیورٹی الرٹ: صاحبزادہ عمر سراج والٹ کا ۴ ہندسوں کا پن کوڈ درج کریں:");
+    
+    if (enterPin === "1122") {
+        // اگر پن صحیح ہے تو ایچ ٹی ایم ایل اور باڈی کو اسکرین پر شو کر دے گا
+        document.documentElement.style.display = 'block';
+        document.body.className = "unlocked";
+    } else {
+        alert("غلط پن کوڈ درج کیا گیا ہے! والٹ تک رسائی بند ہے۔");
+        window.location.reload(); // غلط پاس ورڈ پر پیج دوبارہ لاک ہو جائے گا
+    }
+</script>
 
 <div class="header-container">
     <div class="vip-header">Sahibzada Umer Siraj</div>
 </div>
 
 <div class="container">
-    <!-- 1. لاگ ان اسکرین -->
-    <div id="backup-login" class="glass-button-card">
-        <div style="font-size: 32px; margin-bottom: 10px;">🔒</div>
-        <p style="color: #ffd700; font-size: 14px; font-weight: bold; margin-bottom: 15px;">والٹ لاک ہے !</p>
-        <input type="text" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
-        
-        <!-- 🚀 یہ خالص سی ایس ایس بٹن لنک ہے، اس پر کلک کرتے ہی پیج کا ہیش ٹیگ بدل جائے گا اور یہ انلاک ہو جائے گا -->
+    <div class="glass-button-card">
+        <div class="balance-text-group">
+            <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
+            <div class="eye-btn" onclick="toggleBalance()">👁️</div>
+        </div>
+        <div id="balance-val" class="balance-amount">Rs. 0</div>
+        <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
+    </div>
+
+    <div class="apps-row">
+        <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
+        <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
+    </div> 
+
+    <div class="glass-button-card">
+        <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
+        <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
+    </div>
+</div>
+
+<div class="ai-widget" id="ai-widget">
+    <div class="ai-icon-btn" onclick="toggleAiChat()">🤖</div>
+    <div class="ai-chat-window" id="ai-window">
+        <div class="ai-header">
+            <span>Umer Wallet AI Assistant 🤖</span>
+            <span style="cursor:pointer; font-size:18px;" onclick="toggleAiChat()">×</span>
+        </div>
+        <div class="ai-messages" id="ai-messages">
+            <div class="msg bot">سلام صاحبزادہ عمر سراج! میں آپ کا اسسٹنٹ ہوں۔ آپ مجھ سے اپنے والٹ بجٹ کے بارے میں کچھ بھی پوچھ سکتے ہیں۔</div>
+        </div>
+        <div class="ai-input-area">
+            <input type="text" id="ai-text" class="ai-input" placeholder="یہاں لکھیں...">
+            <button class="ai-send-btn" onclick="sendAiMessage()">بھیجیں</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var isBalanceHidden = false;
+
