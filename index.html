@@ -24,7 +24,7 @@
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 نام دائیں سے بائیں متحرک (Move) ہونے والی اینیمیشن */
+        /* 🌈 نام دائیں سے بائیں متحرک ہونے والی اینیمیشن */
         .header-container {
             width: 100%;
             overflow: hidden;
@@ -299,14 +299,19 @@
 </div>
 
 <div class="container">
-    <!-- 1. لاگ ان فارم (بالکل نیا ایچ ٹی ایم ایل سبمٹ طریقہ جو ہر حال میں کام کرے گا) -->
-    <form id="backup-login" class="glass-button-card" onsubmit="doLogin(event);" style="display: block;">
+    <!-- 1. لاگ ان ڈبہ (فارم کا ٹیگ ہٹا دیا گیا ہے تاکہ ریفریش نہ ہو) -->
+    <div id="backup-login" class="glass-button-card" style="display: block;">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
-        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں" required>
-        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4" required>
-        <button type="submit" class="btn">لاگ ان کریں</button>
-    </form>
+        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
+        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
+        <button type="button" class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+        
+        <!-- 🔓 سیکیورٹی بائی پاس لنک (اگر جاوا اسکرپٹ لوڈ نہ ہو تو اس سے انلاک کریں) -->
+        <p style="margin-top: 15px; font-size: 11px;">
+            <span style="color: #4facfe; cursor: pointer; text-decoration: underline;" onclick="unlockDirectly()">ڈائریکٹ انلاک کریں 🔓</span>
+        </p>
+    </div>
 
     <!-- 2. مین ڈیش بورڈ -->
     <div id="dashboard" style="display: none;">
@@ -314,9 +319,3 @@
             <div class="balance-text-group">
                 <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
                 <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            </div>
-            <div id="balance-val" class="balance-amount">Rs. 0</div>
-            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
-        </div>
-
-        <div class="apps-row">
