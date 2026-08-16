@@ -79,20 +79,6 @@
             width: 100%;
         }
 
-        .input-field {
-            width: 100%;
-            padding: 14px; 
-            margin-bottom: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 12px;
-            box-sizing: border-box;
-            text-align: center;
-            font-size: 14px;
-            background: rgba(0, 0, 0, 0.85); 
-            color: #ffffff;
-            outline: none;
-        }
-
         .btn {
             background: linear-gradient(135deg, #3498db, #2980b9);
             color: white;
@@ -291,33 +277,42 @@
             font-weight: bold;
             font-size: 12px;
         }
+
+        /* 🪄 سی ایس ایس پوزیشن ٹوگل ٹرک */
+        #dashboard, #ai-widget { display: none; }
+        
+        /* جب ہائڈ لاک پر کلک ہو تو جادو شروع ہو جائے */
+        #lock-trigger:checked ~ .container #backup-login { display: none !important; }
+        #lock-trigger:checked ~ .container #dashboard { display: block !important; }
+        #lock-trigger:checked ~ #ai-widget { display: block !important; }
+        #lock-trigger:checked ~ body { background: url('pic2.jpg') !important; }
     </style>
 </head>
-<body class="login-bg"> <!-- شروع میں لاگ ان کا بیک گراؤنڈ لوڈ ہوگا -->
+<body class="login-bg">
+
+<!-- 🔐 خفیہ سی ایس ایس ہیک چیک باکس (یہ اسکرین پر نظر نہیں آئے گا) -->
+<input type="checkbox" id="lock-trigger" style="display: none;">
 
 <div class="header-container">
     <div class="vip-header">Sahibzada Umer Siraj</div>
 </div>
 
 <div class="container">
-    <!-- 1. لاگ ان اسکرین (واپس ایکٹیو کر دی گئی ہے) -->
+    <!-- 1. لاگ ان اسکرین (اب یہ خالص سی ایس ایس لیبل بٹن پر کام کرتا ہے) -->
     <div id="backup-login" class="glass-button-card" style="display: block;">
-        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
-        <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
-        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
-        <button type="button" class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+        <div style="font-size: 32px; margin-bottom: 10px;">🔒</div>
+        <p style="color: #ffd700; font-size: 14px; font-weight: bold; margin-bottom: 15px;">والٹ لاک ہے!</p>
+        
+        <!-- یہ جادوئی بٹن ہے جو کلک ہوتے ہی والٹ کھول دے گا -->
+        <label for="lock-trigger" class="btn" style="display: block; text-decoration: none; padding: 14px; background: linear-gradient(135deg, #00f2fe, #4facfe); color: black;">
+            والٹ انلاک کریں 🔓
+        </label>
     </div>
 
     <!-- 2. مین ڈیش بورڈ -->
-    <div id="dashboard" style="display: none;">
+    <div id="dashboard">
         <div class="glass-button-card">
             <div class="balance-text-group">
                 <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
                 <div class="eye-btn" onclick="toggleBalance()">👁️</div>
             </div>
-            <div id="balance-val" class="balance-amount">Rs. 0</div>
-            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
-        </div>
-
-        <div class="apps-row">
