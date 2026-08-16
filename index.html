@@ -31,7 +31,7 @@
             margin-top: 20px;
             margin-bottom: 10px;
             position: relative;
-            z-index: 10005; /* نام ہمیشہ سب سے اوپر رہے گا */
+            z-index: 10005;
         }
 
         .vip-header {
@@ -83,8 +83,8 @@
         }
 
         .btn {
-            background: linear-gradient(135deg, #3498db, #2980b9);
-            color: white;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: black;
             border: none;
             padding: 14px 20px;
             font-size: 16px;
@@ -92,9 +92,11 @@
             cursor: pointer;
             font-weight: bold;
             width: 100%;
-            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.5);
             display: block;
             text-align: center;
+            text-decoration: none;
+            box-sizing: border-box;
         }
 
         /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
@@ -283,25 +285,26 @@
             font-size: 12px;
         }
 
-        /* 🪄 الٹرا ایڈوانسڈ سی ایس ایس ٹوگل فکس */
+        /* 🪄 سی ایس ایس پوزیشن ٹوگل فکس */
         #backup-login {
             position: relative;
             z-index: 10000;
             pointer-events: auto;
+            display: block;
         }
 
         #dashboard {
             display: none;
             position: relative;
             z-index: 1;
-            pointer-events: none; /* لاک ہونے کی حالت میں بٹنز کام نہیں کریں گے */
+            pointer-events: none;
         }
 
         #ai-widget {
             display: none;
         }
         
-        /* 🔓 جب خفیہ ٹریگر آن ہو تو پرانے لیئرز کو مٹا کر ڈیش بورڈ کو سب سے اوپر لائیں */
+        /* 🔓 انلاک کی حالت */
         #lock-trigger:checked ~ .container #backup-login { 
             display: none !important; 
             pointer-events: none !important;
@@ -309,7 +312,7 @@
         #lock-trigger:checked ~ .container #dashboard { 
             display: block !important; 
             z-index: 10000 !important;
-            pointer-events: auto !important; /* بٹنز پر کلک ہونا اب شروع ہو جائے گا */
+            pointer-events: auto !important;
         }
         #lock-trigger:checked ~ #ai-widget { 
             display: block !important; 
@@ -331,4 +334,6 @@
         <div style="font-size: 32px; margin-bottom: 10px;">🔒</div>
         <p style="color: #ffd700; font-size: 14px; font-weight: bold; margin-bottom: 15px;">والٹ لاک ہے!</p>
         
-        <!-- انلاک کرنے کا اصلی فکسڈ بٹن -->
+        <!-- اب یہ بٹن بالکل صاف نظر آئے گا -->
+        <label for="lock-trigger" class="btn" style="cursor: pointer;">
+            والٹ انلاک کریں 🔓
