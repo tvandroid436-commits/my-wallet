@@ -21,6 +21,7 @@
         }
         
         /* 🖼️ بیک گراؤنڈ تصاویر */
+        body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
         /* 🌈 نام دائیں سے بائیں متحرک ہونے والی اینیمیشن */
@@ -78,17 +79,31 @@
             width: 100%;
         }
 
-        .edit-btn {
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-            padding: 5px 10px;
-            font-size: 11px;
-            border-radius: 6px;
-            cursor: pointer;
+        .input-field {
             width: 100%;
-            margin-top: 8px;
+            padding: 14px; 
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 14px;
+            background: rgba(0, 0, 0, 0.85); 
+            color: #ffffff;
+            outline: none;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            border: none;
+            padding: 14px 20px;
+            font-size: 16px;
+            border-radius: 12px;
+            cursor: pointer;
             font-weight: bold;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
         }
 
         /* ⚡ جاز کیش اور ایزی پیسہ بٹنز */
@@ -138,6 +153,19 @@
             padding: 2px 8px;
             border-radius: 6px;
             user-select: none;
+        }
+
+        .edit-btn {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+            padding: 5px 10px;
+            font-size: 11px;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            font-weight: bold;
         }
 
         .notes-title {
@@ -265,15 +293,24 @@
         }
     </style>
 </head>
-<body class="dashboard-bg"> <!-- ڈائریکٹ ڈیش بورڈ امیج لوڈ ہوگی -->
+<body class="login-bg"> <!-- شروع میں لاگ ان کا بیک گراؤنڈ لوڈ ہوگا -->
 
 <div class="header-container">
     <div class="vip-header">Sahibzada Umer Siraj</div>
 </div>
 
 <div class="container">
-    <!-- 2. مین ڈیش بورڈ (اب یہ پہلے ہی صفحے پر ڈائریکٹ اوپن ہوگا) -->
-    <div id="dashboard" style="display: block;">
+    <!-- 1. لاگ ان اسکرین (واپس ایکٹیو کر دی گئی ہے) -->
+    <div id="backup-login" class="glass-button-card" style="display: block;">
+        <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
+        <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
+        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
+        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
+        <button type="button" class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
+    </div>
+
+    <!-- 2. مین ڈیش بورڈ -->
+    <div id="dashboard" style="display: none;">
         <div class="glass-button-card">
             <div class="balance-text-group">
                 <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
@@ -284,37 +321,3 @@
         </div>
 
         <div class="apps-row">
-            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
-            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
-        </div> 
-
-        <div class="glass-button-card">
-            <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
-            <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
-        </div>
-    </div>
-</div>
-
-<!-- 🤖 AI روبوٹ اسسٹنٹ ہوم پیج پر ریڈی ہے -->
-<div class="ai-widget" id="ai-widget" style="display: block;">
-    <div class="ai-icon-btn" onclick="toggleAiChat()">🤖</div>
-    <div class="ai-chat-window" id="ai-window">
-        <div class="ai-header">
-            <span>Umer Wallet AI Assistant 🤖</span>
-            <span style="cursor:pointer; font-size:18px;" onclick="toggleAiChat()">×</span>
-        </div>
-        <div class="ai-messages" id="ai-messages">
-            <div class="msg bot">سلام صاحبزادہ عمر سراج! میں آپ کا اسسٹنٹ ہوں۔ آپ مجھ سے اپنے والٹ بجٹ کے بارے میں کچھ بھی پوچھ سکتے ہیں۔</div>
-        </div>
-        <div class="ai-input-area">
-            <input type="text" id="ai-text" class="ai-input" placeholder="یہاں لکھیں...">
-            <button class="ai-send-btn" onclick="sendAiMessage()">بھیجیں</button>
-        </div>
-    </div>
-</div>
-
-<script>
-    var isBalanceHidden = false;
-
-    // پیج لوڈ ہوتے ہی ڈیٹا ریکور کریں
-    window.onload = function() {
