@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sahibzada Umer Siraj Wallet v14</title>
+    <!-- EmailJS لائبریری -->
+    <script type="text/javascript" src="https://jsdelivr.net"></script>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -24,21 +26,32 @@
         body.login-bg { background: url('pic1.jpg'); }
         body.dashboard-bg { background: url('pic2.jpg'); }
 
-        /* 🌈 نام کا اسٹائل جو دائیں (Right) طرف پریمیم گلو کے ساتھ ہے */
+        /* 🌈 نام دائیں سے بائیں متحرک (Move) ہونے والی اینیمیشن */
+        .header-container {
+            width: 100%;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
         .vip-header {
             font-family: 'Impact', 'Arial Black', sans-serif;
             font-size: 24px; 
             font-weight: bold;
-            margin: 25px 20px 10px 0;
-            text-align: right;
-            width: auto;
+            display: inline-block;
             white-space: nowrap;
             background: linear-gradient(45deg, #ffd700, #ff007f, #00f2fe, #4facfe);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: colorAnimation 6s ease infinite;
+            animation: colorAnimation 6s ease infinite, moveName 12s linear infinite;
             text-shadow: 0 4px 15px rgba(0, 0, 0, 0.9), 0 0 10px rgba(0, 242, 254, 0.4);
+            padding-right: 100%;
+        }
+
+        @keyframes moveName {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
         }
 
         @keyframes colorAnimation {
@@ -53,22 +66,21 @@
             max-width: 270px; 
             margin-right: auto; 
             margin-left: auto;
-            margin-top: 290px; 
+            margin-top: 260px; 
             box-sizing: border-box;
         }
 
-        /* 🪄 شیشہ نما کارڈز - یہاں سے بلیک بیک گراؤنڈ اور بارڈر ختم کر دیا ہے */
+        /* شیشہ نما کارڈز (ٹرانسپیرنٹ فکسڈ) */
         .glass-button-card {
-            background: transparent; /* بلیک باکس ختم کرنے کے لیے ٹرانسپیرنٹ کیا */
-            border: none; /* بارڈر لائن ختم کر دی */
+            background: transparent; 
+            border: none; 
             padding: 10px;
-            box-shadow: none; /* بیرونی سایہ ختم کر دیا */
+            box-shadow: none; 
             margin-bottom: 12px;
             text-align: center;
             box-sizing: border-box;
         }
 
-        /* انپٹ باکسز کا اسٹائل برقرار رکھا تاکہ ٹیکسٹ لکھنے کی جگہ نظر آتی رہے */
         .input-field {
             width: 100%;
             padding: 14px; 
@@ -78,7 +90,7 @@
             box-sizing: border-box;
             text-align: center;
             font-size: 14px;
-            background: rgba(0, 0, 0, 0.85); /* باکسز کے اندر کا بلیک کلر برقرار ہے تاکہ لکھائی صاف نظر آئے */
+            background: rgba(0, 0, 0, 0.85); 
             color: #ffffff;
             outline: none;
         }
@@ -179,11 +191,116 @@
             font-size: 13px;
             outline: none;
         }
+
+        /* 🤖 AI چیٹ بوٹ کا اسٹائل */
+        .ai-widget {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 10000;
+        }
+
+        .ai-icon-btn {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 242, 254, 0.5);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+            100% { transform: scale(1); }
+        }
+
+        .ai-chat-window {
+            display: none;
+            position: fixed;
+            bottom: 85px;
+            left: 20px;
+            width: 280px;
+            height: 350px;
+            background: rgba(15, 23, 42, 0.95);
+            border: 1px solid rgba(0, 242, 254, 0.3);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+            flex-direction: column;
+            overflow: hidden;
+            z-index: 10000;
+        }
+
+        .ai-header {
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            color: black;
+            padding: 12px;
+            font-weight: bold;
+            font-size: 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ai-messages {
+            flex: 1;
+            padding: 10px;
+            overflow-y: auto;
+            font-size: 13px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .msg {
+            padding: 8px 12px;
+            border-radius: 10px;
+            max-width: 80%;
+            line-height: 1.4;
+        }
+        .msg.bot { background: rgba(255,255,255,0.1); align-self: flex-start; text-align: left; }
+        .msg.user { background: #4facfe; color: black; align-self: flex-end; text-align: right; }
+
+        .ai-input-area {
+            display: flex;
+            padding: 8px;
+            background: rgba(0,0,0,0.5);
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .ai-input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: white;
+            padding: 6px;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .ai-send-btn {
+            background: #4facfe;
+            border: none;
+            color: black;
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body class="login-bg">
 
-<div class="vip-header">Sahibzada Umer Siraj</div>
+<!-- متحرک نام کا کنٹینر -->
+<div class="header-container">
+    <div class="vip-header">Sahibzada Umer Siraj</div>
+</div>
 
 <div class="container">
     <!-- 1. لاگ ان اسکرین -->
@@ -195,91 +312,8 @@
         <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 2. مین ڈیش بورڈ -->
-    <div id="dashboard" style="display: none;">
-        <!-- بیلنس کارڈ -->
-        <div class="glass-button-card">
-            <div class="balance-text-group">
-                <div style="font-size: 13px; opacity: 0.9;">کل بیلنس (PKR):</div>
-                <div class="eye-btn" onclick="toggleBalance()">👁️</div>
-            </div>
-            <div id="balance-val" class="balance-amount">Rs. 0</div>
-            <button class="edit-btn" onclick="editBalance()">رقم تبدیل کریں ✏️</button>
-        </div>
-
-        <!-- بٹنز رو -->
-        <div class="apps-row">
-            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
-            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
-        </div>
-
-        <!-- خفیہ نوٹس کارڈ -->
-        <div class="glass-button-card">
-            <div class="notes-title">📝 میرے خفیہ نوٹس:</div>
-            <textarea id="wallet-notes" class="notes-area" placeholder="کارڈ نمبرز یا کوڈز یہاں لکھیں..." oninput="saveNotes()"></textarea>
-        </div>
-    </div>
-</div>
-
-<script>
-    var CORRECT_USER = "UmerSiraj";
-    var CORRECT_PIN = "1122";
-    var isBalanceHidden = false;
-
-    window.onload = function() {
-        document.getElementById('backup-login').style.display = 'block';
-        document.getElementById('dashboard').style.display = 'none';
-
-        var savedBalance = localStorage.getItem('wallet_balance');
-        if (savedBalance) {
-            document.getElementById('balance-val').innerText = "Rs. " + savedBalance;
-        }
-
-        if (localStorage.getItem('wallet_notes')) {
-            document.getElementById('wallet-notes').value = localStorage.getItem('wallet_notes');
-        }
-    };
-
-    function verifyBackupLogin() {
-        var user = document.getElementById('login-user').value;
-        var pin = document.getElementById('login-pin').value;
-
-        if (user === CORRECT_USER && pin === CORRECT_PIN) {
-            document.getElementById('backup-login').style.display = 'none';
-            document.getElementById('dashboard').style.display = 'block';
-            document.body.className = "dashboard-bg";
-        } else {
-            alert("غلط یوزر نیم یا پن کوڈ درج کیا گیا ہے!");
-        }
-    }
-
-    function toggleBalance() {
-        var balanceElement = document.getElementById('balance-val');
-        if (!isBalanceHidden) {
-            var currentBalance = balanceElement.innerText.replace("Rs. ", "");
-            localStorage.setItem('temp_balance', currentBalance);
-            balanceElement.innerText = "Rs. *****";
-            isBalanceHidden = true;
-        } else {
-            var saved = localStorage.getItem('wallet_balance') || "0";
-            balanceElement.innerText = "Rs. " + saved;
-            isBalanceHidden = false;
-        }
-    }
-
-    function editBalance() {
-        var newBalance = prompt("نئی رقم درج کریں:");
-        if (newBalance !== null && !isNaN(newBalance) && newBalance.trim() !== "") {
-            localStorage.setItem('wallet_balance', newBalance);
-            document.getElementById('balance-val').innerText = "Rs. " + newBalance;
-            isBalanceHidden = false;
-        }
-    }
-
-    function saveNotes() {
-        var notes = document.getElementById('wallet-notes').value;
-        localStorage.setItem('wallet_notes', notes);
-    }
-</script>
-</body>
-</html>
+    <!-- 2. او ٹی پی ویریفیکیشن اسکرین -->
+    <div id="otp-screen" class="glass-button-card" style="display: none;">
+        <div style="font-size: 26px; margin-bottom: 6px;">📧</div>
+        <p style="color: #ffd700; font-size: 13px; font-weight: bold; margin-bottom: 5px;">OTP کوڈ بھیج دیا گیا ہے!</p>
+        <p style="color: #e2e8f0; font-size: 11px; margin-bottom: 12px;">اپنی جی میل چیک کریں اور کوڈ درج کریں:</p>
