@@ -299,14 +299,14 @@
 </div>
 
 <div class="container">
-    <!-- 1. لاگ ان اسکرین -->
-    <div id="backup-login" class="glass-button-card" style="display: block;">
+    <!-- 1. لاگ ان فارم (بالکل نیا ایچ ٹی ایم ایل سبمٹ طریقہ جو ہر حال میں کام کرے گا) -->
+    <form id="backup-login" class="glass-button-card" onsubmit="doLogin(event);" style="display: block;">
         <div style="font-size: 26px; margin-bottom: 6px;">🔒</div>
         <p style="color: #e2e8f0; font-size: 12px; margin-bottom: 10px;">والٹ انلاک کریں۔</p>
-        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں">
-        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4">
-        <button class="btn" onclick="verifyBackupLogin()">لاگ ان کریں</button>
-    </div>
+        <input type="text" id="login-user" class="input-field" placeholder="یوزر نیم درج کریں" required>
+        <input type="password" id="login-pin" class="input-field" placeholder="پن کوڈ درج کریں" maxlength="4" required>
+        <button type="submit" class="btn">لاگ ان کریں</button>
+    </form>
 
     <!-- 2. مین ڈیش بورڈ -->
     <div id="dashboard" style="display: none;">
@@ -320,5 +320,3 @@
         </div>
 
         <div class="apps-row">
-            <a href="jazzcash://" class="app-btn jazzcash">JazzCash</a>
-            <a href="easypaisa://" class="app-btn easypaisa">EasyPaisa</a>
